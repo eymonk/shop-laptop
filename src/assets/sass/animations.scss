@@ -1,0 +1,25 @@
+@use 'colors';
+
+$transition-fast-extra: 100ms;
+$transition-fast: 150ms;
+$transition-medium: 300ms;
+
+
+/* TRANSFORMATION-ANIMATIONS */
+@mixin scale-small {
+  transform: scale(1.05);
+}
+
+@mixin scale-standard {
+  transform: scale(1.1);
+}
+
+@mixin ride-left {
+  transform: translateX(-15px);
+}
+
+
+/* COLOR-ANIMATIONS */
+@mixin border-white {
+  border-color: colors.$white;
+}

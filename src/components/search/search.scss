@@ -1,0 +1,99 @@
+@use '../../assets/sass/box-model' as box;
+@use '../../assets/sass/colors';
+@use '../../components/general/range';
+@use '../../components/general/checkbox';
+
+.search {
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+  display: inline-block;
+  padding: box.$gap-large;
+  border-right: box.$border-small-accent;
+  background-color: colors.$black-transparent;
+  
+  &__wrapper {
+    top: 1rem;
+    left: 0px;
+  }
+
+  &__part {
+    margin-bottom: box.$gap-large-extra;
+  }
+
+  &__title {
+    margin-bottom: box.$gap-small;
+    color: colors.$accent;
+    font-weight: bold;
+  }
+
+
+  &__colors-text {
+    display: flex;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: box.$gap-standard;
+      height: box.$gap-standard;
+      margin-left: box.$gap-small;
+
+      border-radius: box.$border-radius-standard;
+    } 
+
+    &_black::after {
+      background-color: colors.$black;
+    }
+    &_white::after {
+      background-color: colors.$white;
+    }
+    &_gray::after {
+      background-color: colors.$gray;
+    }
+    &_blue::after {
+      background-color: colors.$blue;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: box.$gap-standard;
+  }
+
+  /* MEDIA QUERIES */
+  @media only screen and (max-width: 1000px) {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+    justify-content: center;
+    gap: box.$gap-standard calc(box.$gap-large * 2);
+    border-right: none;
+    border-bottom: box.$border-small-accent;
+
+    .search-sort-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .range-wrapper {
+      min-width: 250px;
+    }
+
+    &__filters {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: box.$gap-large;
+    }
+  }
+}
+
+

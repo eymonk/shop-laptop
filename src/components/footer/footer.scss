@@ -1,0 +1,47 @@
+@use '../../assets/sass/box-model' as box;
+@use '../../assets/sass/colors';
+@use '../../assets/sass/animations';
+
+.footer {
+  @include box.padding-inline-standard;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: box.$gap-large-extra;
+  
+  border-top: box.$border-small-accent;
+  background-color: colors.$black-transparent;
+
+  &__link {
+    padding-left: box.$gap-small;
+    transition: animations.$transition-fast;
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include animations.scale-standard;
+    }
+  }
+
+  &__year {
+    font-size: 2rem;
+  }
+
+  &__img {
+    width: calc(box.$gap-standard * 2.5);
+  }
+
+  &__img_rss {
+    width: calc(box.$gap-standard * 5);
+  }
+
+  @media only screen and (max-width: 370px) {
+    flex-direction: column;
+    gap: box.$gap-small;
+
+    &__link {
+      padding-left: 0px;
+    }
+  }
+}

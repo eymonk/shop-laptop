@@ -1,0 +1,85 @@
+@use '../../assets/sass/box-model' as box;
+@use '../../assets/sass/colors';
+@use '../../assets/sass/animations';
+
+.goods {
+  @include box.padding-block-standard;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: center;
+  gap: box.$gap-large;
+  font-size: 1.1rem;
+
+  &__card {
+    position: relative;
+    @include box.padding-block-standard;
+    width: calc(1rem * 15);
+    display: flex;
+    flex-direction: column;
+    gap: box.$gap-small;
+
+    border: box.$border-large-accent;
+    border-radius: box.$border-radius-standard;
+    background-color: colors.$accent-transparent;
+    color: colors.$black;
+    transition: animations.$transition-medium;
+    cursor: pointer;
+
+    &:hover {
+      @include animations.border-white;
+    }
+    &:hover .goods__card-img {
+      @include animations.scale-small;
+    }
+
+    &_in-cart {
+      display: none;
+      position: absolute;
+      width: 2rem;
+      top: box.$gap-small;
+      right: box.$gap-small;
+    }
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__brand {
+    font-size: 1.4rem;
+  }
+
+  &__model {
+    height: 2.1rem;
+  }
+
+  &__img-wrapper {
+    width: 100%;
+    height: calc(1rem * 8);
+    border-radius: box.$border-radius-standard;
+    background-color: #fff;
+    overflow: hidden;
+  }
+
+  &__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: animations.$transition-medium;
+  }
+
+  &__feature {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      color: colors.$white;
+      font-weight: bold;
+    }
+  }
+}

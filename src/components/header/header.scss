@@ -1,0 +1,95 @@
+@use '../../assets/sass/box-model' as box;
+@use '../../assets/sass/colors';
+@use '../../assets/sass/animations';
+
+.header {
+  @include box.padding-inline-standard;
+  display: flex;
+  align-items: center;
+  border-bottom: box.$border-small-accent;
+  background-color: colors.$black-transparent;
+
+  &__link {
+    width: 3.5rem;
+    transition: animations.$transition-medium;
+
+    &:hover,
+    &:active {
+      @include animations.scale-standard;
+    }
+  }
+  &__icon {
+    width: 100%;
+  }
+  & .cart {
+    position: relative;
+    margin-left: auto;
+    transition: animations.$transition-medium;
+    
+    &:hover {
+      @include animations.ride-left;
+    }
+
+    &__count {
+      position: absolute;
+      top: 0.5rem;
+      left: -0.7rem;
+
+      padding: 0px box.$gap-small;
+      font-weight: bold;
+
+      color: colors.$black;
+      background-color: colors.$white;
+      border: box.$border-small-accent;
+      border-radius: box.$border-radius-standard;
+    }
+  }
+
+  &__title-wrapper {
+    @include box.padding-inline-standard;
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  @media only screen and (max-width: 500px) {
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    & .cart {
+      &__count {
+        font-size: 0.7rem;
+        top: 0.2rem;
+        left: -0.6rem;
+        padding: 0px 3px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    &__link {
+      width: 2.5rem;
+    }
+
+    &__link_logo {
+      display: none;
+    }
+
+    &__subtitle {
+      font-size: 0.8rem;
+    }
+
+    & .cart {
+      &__count {
+        font-size: 0.7rem;
+        top: 0.2rem;
+        left: -0.6rem;
+  
+        padding: 0px 3px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+

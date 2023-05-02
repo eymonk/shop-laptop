@@ -1,0 +1,26 @@
+@use 'colors';
+
+/* GAPS SIZES */
+$gap-small-extra: 0.25rem;
+$gap-small: 0.5rem;
+$gap-standard: 1rem;
+$gap-large: 1.5rem;
+$gap-large-extra: 1.75rem;
+
+
+/* BORDERS TEMPLATES*/
+$border-small-accent: 1.5px solid colors.$accent;
+$border-standard-black: 3px solid colors.$black;
+$border-standard-accent: 3px solid colors.$accent;
+$border-large-accent: 6px solid colors.$accent;
+$border-radius-standard: 4px;
+
+
+/* PADDINGS TEMPLATES */
+@mixin padding-inline-standard {
+  padding: $gap-small $gap-standard;
+}
+
+@mixin padding-block-standard {
+  padding: $gap-large;
+}

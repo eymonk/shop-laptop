@@ -1,0 +1,39 @@
+@use '../../assets/sass/box-model' as box;
+@use '../../assets/sass/colors';
+@use '../../assets/sass/animations';
+
+.checkboxes {
+  &__item {
+    display: flex;
+    padding-bottom: box.$gap-small;
+    transition: animations.$transition-fast;
+    cursor: pointer;
+
+    &:hover .checkboxes__box, 
+    &:focus .checkboxes__box {
+      @include animations.scale-standard;
+    }
+  }
+
+  &__box {
+    width: box.$gap-standard;
+    height: box.$gap-standard;
+    margin-right: box.$gap-small;
+    border: box.$border-standard-accent;
+    border-radius: box.$border-radius-standard;
+
+    &_active {
+      background-color: colors.$white;
+      position: relative;
+
+      &::after{
+        content: '✓';
+        position: absolute;
+        display: block;
+        transform: translate(0, -0.5rem);
+        font-weight: bold;
+        color: #000;
+      }
+    }
+  }
+}

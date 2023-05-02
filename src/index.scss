@@ -1,0 +1,135 @@
+/* elements */
+@use './components/header/header';
+@use './components/goods/goods';
+@use './components/search/search';
+@use './components/footer/footer';
+
+/* assets */
+@use './assets/sass/colors';
+@use './assets/sass/animations';
+@use './assets/sass/box-model' as box;
+
+
+/*** GENERAL ***/
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 18px;
+  font-family: 'Trebuchet MS', 'Arial', sans-sedrif;
+  color: colors.$white;
+}
+
+body {
+  background: url('assets/img/background.jpg');
+}
+
+.container {
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.main {
+  position: relative;
+  display: flex;
+}
+
+.message {
+  &__container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 7rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: colors.$black-transparent-dark;
+  }
+  &__wrapper {
+    @include box.padding-inline-standard;
+    color: colors.$black;
+    background-color: colors.$white;
+    border: box.$border-standard-accent;
+    border-radius: box.$border-radius-standard;
+  }
+
+  &__title {
+    margin-bottom: box.$gap-small-extra;
+    font-weight: bold;
+    color: colors.$accent;
+  }
+
+  &__text {
+    font-size: 1.5rem;
+  }
+}
+
+/*** INPUTS ***/
+.input-wrapper {
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    top: 0.35rem;
+    right: box.$gap-small;
+    width: 1.2rem;
+    transition: animations.$transition-fast-extra;
+    cursor: pointer;
+
+    &:hover {
+      @include animations.scale-standard;
+    }
+  }
+}
+
+input,
+select {
+  width: 100%;
+  padding: box.$gap-small-extra box.$gap-standard;
+  font: inherit;
+  border-radius: box.$border-radius-standard;;
+  border: box.$border-standard-accent;
+  background: colors.$gray-light;
+  
+  &:focus,
+  &:hover,
+  &:active {
+    outline: none;
+    background: colors.$white;
+  }
+}
+
+select, 
+option {
+  cursor: pointer;
+}
+
+/*** BUTTONS ***/
+button {
+  padding: box.$gap-small-extra box.$gap-standard;
+  font: inherit;
+  
+  background-color: colors.$accent;
+  border: 3px solid transparent;
+  border-radius: box.$border-radius-standard;
+  transition: animations.$transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    @include animations.border-white;
+  }
+}
+
+/*** GENERAL ELEMENTS MEDIA QUEIRES ***/
+@media only screen and (max-width: 1000px) {
+  .main {
+    flex-direction: column;
+  }
+}
