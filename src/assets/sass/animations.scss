@@ -23,3 +23,7 @@ $transition-medium: 300ms;
 @mixin border-white {
   border-color: colors.$white;
 }
+
+@mixin background-accent {
+  background-color: colors.$accent;
+}

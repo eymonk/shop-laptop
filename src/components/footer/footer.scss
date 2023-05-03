@@ -3,7 +3,7 @@
 @use '../../assets/sass/animations';
 
 .footer {
-  @include box.padding-inline-standard;
+  @include box.padding-inline-standard-2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -14,13 +14,14 @@
   background-color: colors.$black-transparent;
 
   &__link {
-    padding-left: box.$gap-small;
+    padding: 6px 7px;
+    background: colors.$gray-light;
     transition: animations.$transition-fast;
+    border-radius: box.$border-radius-standard;
 
     &:hover,
-    &:focus,
-    &:active {
-      @include animations.scale-standard;
+    &:focus {
+      @include animations.background-accent;
     }
   }
 
@@ -28,12 +29,8 @@
     font-size: 2rem;
   }
 
-  &__img {
-    width: calc(box.$gap-standard * 2.5);
-  }
-
-  &__img_rss {
-    width: calc(box.$gap-standard * 5);
+  &__icon {
+    width: 30px;
   }
 
   @media only screen and (max-width: 370px) {

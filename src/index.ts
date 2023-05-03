@@ -2,12 +2,13 @@ import './components/search/reset';
 import controller from './components/controller';
 import app from './components/app';
 
+import './assets/svg/telegram-icon.svg';
+import './assets/svg/github-icon.svg';
+import './assets/svg/page-icon.svg';
 import './assets/svg/search.svg';
 import './assets/svg/close.svg';
 import './assets/svg/cart.svg';
 import './assets/svg/logo.svg';
-import './assets/svg/github.svg';
-import './assets/svg/rs-school.svg';
 import './index.scss';
 
 // create js components for search-tools

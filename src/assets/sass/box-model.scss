@@ -1,11 +1,11 @@
 @use 'colors';
-
 /* GAPS SIZES */
 $gap-small-extra: 0.25rem;
 $gap-small: 0.5rem;
 $gap-standard: 1rem;
 $gap-large: 1.5rem;
 $gap-large-extra: 1.75rem;
+$gap-large-extra-2: 2rem;
 
 
 /* BORDERS TEMPLATES*/
@@ -19,6 +19,10 @@ $border-radius-standard: 4px;
 /* PADDINGS TEMPLATES */
 @mixin padding-inline-standard {
   padding: $gap-small $gap-standard;
+}
+
+@mixin padding-inline-standard-2 {
+  padding: $gap-standard;
 }
 
 @mixin padding-block-standard {
