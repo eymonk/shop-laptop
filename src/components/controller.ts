@@ -86,6 +86,10 @@ const controller = {
       const clone = template.content.cloneNode(true) as HTMLDivElement;
       const messageContainer = clone.querySelector(`.message__container`) as HTMLDivElement;
       const messageElement = clone.querySelector(`.message__text`) as HTMLParagraphElement;
+      const messageTitle = clone.querySelector('.message__title') as HTMLParagraphElement;
+
+      if (app.language === 'en') messageTitle.textContent = 'system message';
+      else messageTitle.textContent = 'системное сообщение';
 
       messageElement.textContent = message;
       if (app.elements.goods.querySelector('.main-message') == null) app.elements.goods.append(messageContainer);
@@ -104,7 +108,10 @@ const controller = {
     if (!app.elements.goods.textContent) {
       if (app.elements.mainMessage) {
         app.elements.goods.append(app.elements.mainMessage);
-      } else this.createMessage('main-message', 'sorry, no mathces found', false);
+      } else {
+        if (app.language === 'en') this.createMessage('main-message', 'no matches found', false);
+        else this.createMessage('main-message', 'совпадений не найдено', false);
+      }
     }
   },
 

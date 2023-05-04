@@ -49,23 +49,24 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: colors.$black-transparent-dark;
   }
   &__wrapper {
-    @include box.padding-inline-standard;
     color: colors.$black;
     background-color: colors.$white;
-    border: box.$border-standard-accent;
+    border: box.$border-standard-black;
     border-radius: box.$border-radius-standard;
   }
 
   &__title {
+    @include box.padding-inline-standard;
+    background-color: colors.$black;
     margin-bottom: box.$gap-small-extra;
     font-weight: bold;
     color: colors.$accent;
   }
 
   &__text {
+    @include box.padding-inline-standard;
     font-size: 1.5rem;
   }
 }

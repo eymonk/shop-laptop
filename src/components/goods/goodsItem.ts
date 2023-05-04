@@ -66,18 +66,14 @@ class Card {
   }
 
   addToCart() {
-    if (app.cartItems.length < 10) {
-      const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
-      const cartCountElement = document.querySelector('.cart__count') as HTMLParagraphElement;
+    const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
+    const cartCountElement = document.querySelector('.cart__count') as HTMLParagraphElement;
 
-      app.cartItems.push(this.#itemData.id);
-      app.saveSettings();
-      this.inCart = true;
-      cartIcon.style.display = 'block';
-      cartCountElement.textContent = `${app.cartItems.length}`;
-    } else {
-      controller.createMessage('main-message', 'Sorry, all available slots are filled!', true);
-    }
+    app.cartItems.push(this.#itemData.id);
+    app.saveSettings();
+    this.inCart = true;
+    cartIcon.style.display = 'block';
+    cartCountElement.textContent = `${app.cartItems.length}`;
   }
 
   removeFromCart() {

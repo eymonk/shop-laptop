@@ -1,9 +1,9 @@
+import app from './app';
 interface nodeToTranslate {
   node: HTMLElement;
   en: string;
   ru: string;
 }
-let language = 'en';
 const nodesToTranslate: nodeToTranslate[] = [];
 
 function addNodeToTranslate(node: HTMLElement, en: string, ru: string) {
@@ -24,14 +24,14 @@ function addPlaceholderToTranslate(node: HTMLElement, en: string, ru: string) {
 }
 
 function translate() {
-  if (language === 'ru') {
+  if (app.language === 'ru') {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.en));
-    language = 'en';
+    app.language = 'en';
   } else {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.ru));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.ru));
-    language = 'ru';
+    app.language = 'ru';
   }
 }
 

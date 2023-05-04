@@ -5,6 +5,8 @@ import Checkbox from './search/Checkbox';
 import SoleCheckbox from './search/SoleCheckbox';
 
 interface App {
+  isThereMessage: boolean;
+  language: 'ru' | 'en';
   searches: { [key: string]: Search };
   ranges: { [key: string]: DoubleRange };
   filters: { [key: string]: { [key: string]: Checkbox } };
@@ -12,7 +14,6 @@ interface App {
   selects: { [key: string]: Select };
   cartItems: number[];
   elements: { [key: string]: Element };
-  isThereMessage: boolean;
 
   saveRangeSettings: () => void;
   saveFilterSettings: () => void;
@@ -22,13 +23,14 @@ interface App {
 }
 
 const app: App = {
+  language: 'en',
+  isThereMessage: false,
   searches: {},
   ranges: {},
   filters: {},
   soleCheckboxes: {},
   selects: {},
   cartItems: [],
-  isThereMessage: false,
   elements: {
     cart: document.querySelector('.cart') as HTMLElement,
     goods: document.querySelector('.goods') as HTMLElement,
