@@ -3,7 +3,6 @@ interface nodeToTranslate {
   en: string;
   ru: string;
 }
-
 let language = 'en';
 const nodesToTranslate: nodeToTranslate[] = [];
 
@@ -15,12 +14,23 @@ function addNodeToTranslate(node: HTMLElement, en: string, ru: string) {
   });
 }
 
+const placeholdersToTranslate: nodeToTranslate[] = [];
+function addPlaceholderToTranslate(node: HTMLElement, en: string, ru: string) {
+  placeholdersToTranslate.push({
+    node,
+    en,
+    ru,
+  });
+}
+
 function translate() {
   if (language === 'ru') {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
+    placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.en));
     language = 'en';
   } else {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.ru));
+    placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.ru));
     language = 'ru';
   }
 }
@@ -124,6 +134,12 @@ addNodeToTranslate(document.querySelector('.search__controls_reset') as HTMLElem
 [...document.querySelectorAll('.goods__feature_popular')].forEach((node) => {
   addNodeToTranslate(node as HTMLElement, 'popular', 'популярный');
 });
+
+addPlaceholderToTranslate(
+  document.querySelector('.search_main') as HTMLInputElement,
+  'brand / model',
+  'бренд / модель'
+);
 
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
 translateBtn.addEventListener('click', translate);
