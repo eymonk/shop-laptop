@@ -18,6 +18,9 @@ $transition-medium: 300ms;
   transform: translateX(-15px);
 }
 
+@mixin rotate-180 {
+  transform: rotateZ(180deg);
+}
 
 /* COLOR-ANIMATIONS */
 @mixin border-white {

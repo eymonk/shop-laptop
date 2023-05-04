@@ -21,6 +21,21 @@
   &__icon {
     width: 100%;
   }
+  &__button_translate {
+    display: flex;
+    align-items: center;
+    margin-left: box.$gap-standard;
+    margin-right: box.$gap-small;
+    width: 45px;
+    padding: 1px;
+    border: none;
+    border-radius: box.$border-radius-standard;
+    background: colors.$white;
+    transition: transform animations.$transition-fast;
+    &:hover {
+      @include animations.rotate-180;
+    }
+  }
   & .cart {
     position: relative;
     margin-left: auto;
