@@ -23,6 +23,26 @@ function addPlaceholderToTranslate(node: HTMLElement, en: string, ru: string) {
   });
 }
 
+function translateCard(card: Element) {
+  const stockLabel = card.querySelector('.goods__feature-label_in-stock') as HTMLParagraphElement;
+  const yearLabel = card.querySelector('.goods__feature-label_release-year') as HTMLParagraphElement;
+  const gamingLabel = card.querySelector('.goods__feature-label_gaming') as HTMLParagraphElement;
+  const popularLabel = card.querySelector('.goods__feature-label_popular') as HTMLParagraphElement;
+  const colorLabel = card.querySelector('.goods__feature-label_color') as HTMLParagraphElement;
+  const sizeLabel = card.querySelector('.goods__feature-label_size') as HTMLParagraphElement;
+  stockLabel.textContent = app.language === 'en' ? 'in stock' : 'на складе';
+  yearLabel.textContent = app.language === 'en' ? 'release year' : 'год выхода';
+  sizeLabel.textContent = app.language === 'en' ? 'size' : 'размер';
+  colorLabel.textContent = app.language === 'en' ? 'color' : 'цвет';
+  gamingLabel.textContent = app.language === 'en' ? 'gaming' : 'игровой';
+  popularLabel.textContent = app.language === 'en' ? 'popular' : 'популярный';
+}
+
+function translateCards() {
+  const cards = document.querySelectorAll('.goods__card');
+  cards.forEach((card) => translateCard(card));
+}
+
 function translate() {
   if (app.language === 'ru') {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
@@ -33,6 +53,7 @@ function translate() {
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.ru));
     app.language = 'ru';
   }
+  translateCards();
 }
 
 addNodeToTranslate(
@@ -116,25 +137,6 @@ addNodeToTranslate(
 );
 addNodeToTranslate(document.querySelector('.search__controls_reset') as HTMLElement, 'reset', 'сбросить');
 
-[...document.querySelectorAll('.goods__feature_in-stock')].forEach((node) => {
-  addNodeToTranslate(node as HTMLElement, 'in stock', 'на складе');
-});
-[...document.querySelectorAll('.goods__feature_release-year')].forEach((node) => {
-  addNodeToTranslate(node as HTMLElement, 'release year', 'год выхода');
-});
-[...document.querySelectorAll('.goods__feature_size')].forEach((node) => {
-  addNodeToTranslate(node as HTMLElement, 'size', 'размер');
-});
-[...document.querySelectorAll('.goods__feature_color')].forEach((node) => {
-  addNodeToTranslate(node as HTMLElement, 'color', 'цвет');
-});
-[...document.querySelectorAll('.goods__feature_gaming')].forEach((node) => {
-  addNodeToTranslate(node as HTMLElement, 'gaming', 'игровой');
-});
-[...document.querySelectorAll('.goods__feature_popular')].forEach((node) => {
-  addNodeToTranslate(node as HTMLElement, 'popular', 'популярный');
-});
-
 addPlaceholderToTranslate(
   document.querySelector('.search_main') as HTMLInputElement,
   'brand / model',
@@ -143,3 +145,5 @@ addPlaceholderToTranslate(
 
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
 translateBtn.addEventListener('click', translate);
+
+export { translateCard };

@@ -1,5 +1,5 @@
 import app from '../app';
-import controller from '../controller';
+import { translateCard } from '../translator';
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 
@@ -45,6 +45,7 @@ class Card {
     img?.setAttribute('src', `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${itemData.id}.jpg?raw=true`);
     goodsSection?.appendChild(card);
     this.element = card;
+    translateCard(card);
   }
 
   #createClone() {
