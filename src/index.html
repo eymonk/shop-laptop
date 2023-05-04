@@ -17,7 +17,7 @@
       </a>
       <div class="header__title-wrapper">
         <h1 class="header__title">shop-laptop</h1>
-        <p class="header__subtitle">find your favourite device</p>
+        <p class="header__subtitle">your favourite device is near</p>
       </div>
       <a class="header__link header__link_cart cart" href="#">
         <img class="header__icon" src="svg/cart.svg" alt="shopping cart icon">
@@ -30,7 +30,7 @@
         <div class="search__wrapper">
           <div class="search__part">
             <label class="search__label label" for="search">
-              <p class="search__title">search</p>
+              <p class="search__title search__title_search">search</p>
               <div class="input-wrapper">
                 <input class="search_main label__input input" type="text" autocomplete="off" placeholder="brand / model">
                 <img class="search_main-icon input-wrapper__icon" src="svg/search.svg" alt="">
@@ -39,21 +39,21 @@
           </div>
             
           <div class="search__sort search__part">
-            <p class="search__title">sort</p>
+            <p class="search__title search__title_sort-by">sort by</p>
               <select class="select_sort" name="sort">
-                <option value="alphabet-lh">alphabet (A - Z)</option>
-                <option value="alphabet-hl">alphabet (Z - A)</option>
-                <option value="year-hl">year (2022 - 2014)</option>
-                <option value="year-lh">year (2014 - 2022)</option>
-                <option value="stock-lh">stock (1 - 10)</option>
-                <option value="stock-hl">stock (10 - 1)</option>
+                <option class="select__option select__option_alphabet-lh" value="alphabet-lh">alphabet (A - Z)</option>
+                <option class="select__option select__option_alphabet-hl" value="alphabet-hl">alphabet (Z - A)</option>
+                <option class="select__option select__option_year-hl" value="year-hl">year (2022 - 2014)</option>
+                <option class="select__option select__option_year-lh" value="year-lh">year (2014 - 2022)</option>
+                <option class="select__option select__option_stock-lh" value="stock-lh">stock (1 - 10)</option>
+                <option class="select__option select__option_stock-hl" value="stock-hl">stock (10 - 1)</option>
               </select>
           </div>
         </div>
       
         <div class="stock-year-wrapper">
           <div class="search__stock search__part">
-          <p class="search__title">in stock</p>
+          <p class="search__title search__title_in-stock">in stock</p>
           <div class="range-wrapper">
             <p class="range-wrapper__text search__stock_min">1</p>
             <div class="range search__range_stock"></div>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="search__year search__part">
-            <p class="search__title">release year</p>
+            <p class="search__title search__title_release-year">release year</p>
             <div class="range-wrapper">
               <p class="range-wrapper__text search__year_min">2014</p>
               <div class="range search__range_year"></div>
@@ -73,7 +73,7 @@
 
         <div class="search__filters">
           <div class="search__brand checkboxes search__part">
-            <p class="search__title">brand</p>
+            <p class="search__title search__title_brand">brand</p>
             <div class="checkboxes__item">
               <div class="checkboxes__box" data-value="dell"></div>
               <p class="checkboxes__title">DELL</p>
@@ -89,7 +89,7 @@
           </div>
   
           <div class="search__color checkboxes search__part">
-            <p class="search__title">colors</p>
+            <p class="search__title search__title_colors">colors</p>
             <div class="checkboxes__item">
               <div class="checkboxes__box" data-value="black"></div>
               <p class="checkboxes__title search__colors-text search__colors-text_black">black</p>
@@ -109,7 +109,7 @@
           </div>
   
           <div class="search__size checkboxes search__part">
-            <p class="search__title">size</p>
+            <p class="search__title search__title_size">size</p>
             <div class="checkboxes__item">
               <div class="checkboxes__box" data-value="small"></div>
               <p class="checkboxes__title">small (12-14 inch)</p>
@@ -125,21 +125,20 @@
           </div>
   
           <div class="search__additional-filters checkboxes search__part">
-            <p class="search__title">additional filters</p>
+            <p class="search__title search__title_additional-filters">additional filters</p>
             <div class="checkboxes__item">
               <div class="checkboxes__box solebox-popular" data-value="popular"></div>
-              <p class="checkboxes__title">only popular</p>
+              <p class="checkboxes__title checkboxes__title_only-popular">only popular</p>
             </div>
             <div class="checkboxes__item">
               <div class="checkboxes__box solebox-gaming" data-value="gaming"></div>
-              <p class="checkboxes__title">also gaming laptops</p>
+              <p class="checkboxes__title checkboxes__title_also-gaming-models">also gaming models</p>
             </div>
           </div>
         </div>
 
         <div class="search__controls checkboxes search__part">
           <button class="btn search__controls_reset">reset</button>
-          <button class="btn search__controls_reload">reload</button>
         </div>
       </section>
 
@@ -158,22 +157,22 @@
             <img class="goods__card-img" src="" alt="laptop image">
           </div>
 
-          <p class="goods__feature"> in stock
+          <p class="goods__feature goods__feature_in-stock"> in stock
             <span class="goods__feature_stock"></span>
           </p>
-          <p class="goods__feature"> release year
+          <p class="goods__feature goods__feature_release-year"> release year
             <span class="goods__feature_year"></span>
           </p>
-          <p class="goods__feature"> size
+          <p class="goods__feature goods__feature_size"> size
             <span class="goods__feature_size"></span>
           </p>
-          <p class="goods__feature"> color
+          <p class="goods__feature goods__feature_color"> color
             <span class="goods__feature_color"></span>
           </p>
-          <p class="goods__feature"> gaming
+          <p class="goods__feature goods__feature_gaming"> gaming
             <span class="goods__feature_gaming"></span>
           </p>
-          <p class="goods__feature"> popular
+          <p class="goods__feature goods__feature_popular"> popular
             <span class="goods__feature_popular"></span>
           </p>
         </div>

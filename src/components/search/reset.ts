@@ -1,13 +1,6 @@
 import app from '../app';
 import controller from '../controller';
 
-// RELOAD PAGE AND CLEAR SETTINGS
-const reloadBtn = document.querySelector('.search__controls_reload') as HTMLButtonElement;
-reloadBtn.addEventListener('click', () => {
-  localStorage.clear();
-  location.reload();
-});
-
 // RESET FILTERS
 const resetSearch = function () {
   app.searches.main.element.value = '';

@@ -11,11 +11,11 @@
 
   &__link {
     width: 3.5rem;
-    transition: animations.$transition-medium;
+    transition: transform animations.$transition-fast;
 
     &:hover,
     &:active {
-      @include animations.scale-standard;
+      @include animations.scale-small;
     }
   }
   &__icon {
