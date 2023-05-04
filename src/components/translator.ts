@@ -4,6 +4,7 @@ interface nodeToTranslate {
   ru: string;
 }
 
+let language = 'en';
 const nodesToTranslate: nodeToTranslate[] = [];
 
 function addNodeToTranslate(node: HTMLElement, en: string, ru: string) {
@@ -12,6 +13,16 @@ function addNodeToTranslate(node: HTMLElement, en: string, ru: string) {
     en,
     ru,
   });
+}
+
+function translate() {
+  if (language === 'ru') {
+    nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
+    language = 'en';
+  } else {
+    nodesToTranslate.forEach((item) => (item.node.textContent = item.ru));
+    language = 'ru';
+  }
 }
 
 addNodeToTranslate(
@@ -54,8 +65,30 @@ addNodeToTranslate(
 addNodeToTranslate(document.querySelector('.search__title_in-stock') as HTMLElement, 'in stock', 'на складе');
 addNodeToTranslate(document.querySelector('.search__title_release-year') as HTMLElement, 'release year', 'год выпуска');
 addNodeToTranslate(document.querySelector('.search__title_brand') as HTMLElement, 'brand', 'бренд');
+
 addNodeToTranslate(document.querySelector('.search__title_colors') as HTMLElement, 'colors', 'цвета');
+addNodeToTranslate(document.querySelector('.search__colors-text_black') as HTMLElement, 'black', 'чёрный');
+addNodeToTranslate(document.querySelector('.search__colors-text_white') as HTMLElement, 'white', 'белый');
+addNodeToTranslate(document.querySelector('.search__colors-text_gray') as HTMLElement, 'gray', 'серый');
+addNodeToTranslate(document.querySelector('.search__colors-text_blue') as HTMLElement, 'blue', 'синий');
+
 addNodeToTranslate(document.querySelector('.search__title_size') as HTMLElement, 'size', 'размер');
+addNodeToTranslate(
+  document.querySelector('.checkboxes__title_small') as HTMLElement,
+  'small (12-14")',
+  'маленький (12-14")'
+);
+addNodeToTranslate(
+  document.querySelector('.checkboxes__title_medium') as HTMLElement,
+  'medium (14-16")',
+  'средний (14-16")'
+);
+addNodeToTranslate(
+  document.querySelector('.checkboxes__title_large') as HTMLElement,
+  'large (16-18")',
+  'большой (16-18")'
+);
+
 addNodeToTranslate(
   document.querySelector('.search__title_additional-filters') as HTMLElement,
   'additional filters',
@@ -92,4 +125,5 @@ addNodeToTranslate(document.querySelector('.search__controls_reset') as HTMLElem
   addNodeToTranslate(node as HTMLElement, 'popular', 'популярный');
 });
 
-addNodeToTranslate(document.querySelector('.message__title') as HTMLElement, 'message', 'сообщение');
+const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
+translateBtn.addEventListener('click', translate);
