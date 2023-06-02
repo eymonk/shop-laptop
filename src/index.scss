@@ -3,6 +3,7 @@
 @use './components/goods/goods';
 @use './components/search/search';
 @use './components/footer/footer';
+@use './components/message/message';
 
 /* assets */
 @use './assets/sass/colors';
@@ -39,37 +40,6 @@ body {
   display: flex;
 }
 
-.message {
-  &__container {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    padding: 7rem 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &__wrapper {
-    color: colors.$black;
-    background-color: colors.$white;
-    border: box.$border-standard-black;
-    border-radius: box.$border-radius-standard;
-  }
-
-  &__title {
-    @include box.padding-inline-standard;
-    background-color: colors.$black;
-    margin-bottom: box.$gap-small-extra;
-    font-weight: bold;
-    color: colors.$accent;
-  }
-
-  &__text {
-    @include box.padding-inline-standard;
-    font-size: 1.5rem;
-  }
-}
 
 /*** INPUTS ***/
 .input-wrapper {

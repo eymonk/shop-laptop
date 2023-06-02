@@ -1,3 +1,4 @@
+import controller from './controller';
 import app from './app';
 interface nodeToTranslate {
   node: HTMLElement;

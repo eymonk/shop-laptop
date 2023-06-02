@@ -1,12 +1,13 @@
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
-import { Card } from './goods/goodsItem';
 import SoleCheckbox from './search/SoleCheckbox';
+import { Card } from './goods/goodsItem';
 import Checkbox from './search/Checkbox';
+import filters from './search/filters';
 import Search from './search/Search';
 import Select from './search/Select';
-import filters from './search/filters';
 import data from '../assets/goods';
 import app from './app';
+import {showMessage} from "./message/message";
 
 const controller = {
   data: [...data],
@@ -80,38 +81,10 @@ const controller = {
     new SoleCheckbox(name);
   },
 
-  createMessage(templateId: string, message: string, remove: boolean) {
-    if (!app.isThereMessage) {
-      const template = document.querySelector(`#${templateId}`) as HTMLTemplateElement;
-      const clone = template.content.cloneNode(true) as HTMLDivElement;
-      const messageContainer = clone.querySelector(`.message__container`) as HTMLDivElement;
-      const messageElement = clone.querySelector(`.message__text`) as HTMLParagraphElement;
-      const messageTitle = clone.querySelector('.message__title') as HTMLParagraphElement;
-
-      if (app.language === 'en') messageTitle.textContent = 'system message';
-      else messageTitle.textContent = 'системное сообщение';
-
-      messageElement.textContent = message;
-      if (app.elements.goods.querySelector('.main-message') == null) app.elements.goods.append(messageContainer);
-      if (remove) {
-        setTimeout(() => {
-          messageContainer.remove();
-          app.isThereMessage = false;
-        }, 4000);
-      }
-      app.isThereMessage = true;
-      scroll(0, app.elements.goods.scrollTop);
-    }
-  },
-
   checkMatches() {
     if (!app.elements.goods.textContent) {
-      if (app.elements.mainMessage) {
-        app.elements.goods.append(app.elements.mainMessage);
-      } else {
-        if (app.language === 'en') this.createMessage('main-message', 'no matches found', false);
-        else this.createMessage('main-message', 'совпадений не найдено', false);
-      }
+      if (app.elements.mainMessage) app.elements.goods.append(app.elements.mainMessage);
+      else showMessage('no-matches');
     }
   },
 
