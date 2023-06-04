@@ -3,9 +3,10 @@ import Search from './search/Search';
 import Select from './search/Select';
 import Checkbox from './search/Checkbox';
 import SoleCheckbox from './search/SoleCheckbox';
+import { Message } from './message/message';
 
 interface App {
-  isThereMessage: boolean;
+  currentMessageType: Message;
   language: 'ru' | 'en';
   searches: { [key: string]: Search };
   ranges: { [key: string]: DoubleRange };
@@ -24,7 +25,7 @@ interface App {
 
 const app: App = {
   language: 'en',
-  isThereMessage: false,
+  currentMessageType: null,
   searches: {},
   ranges: {},
   filters: {},

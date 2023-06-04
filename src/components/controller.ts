@@ -7,7 +7,7 @@ import Search from './search/Search';
 import Select from './search/Select';
 import data from '../assets/goods';
 import app from './app';
-import {showMessage} from "./message/message";
+import { showMessage } from './message/message';
 
 const controller = {
   data: [...data],
@@ -82,6 +82,7 @@ const controller = {
   },
 
   checkMatches() {
+    console.log('check matches');
     if (!app.elements.goods.textContent) {
       if (app.elements.mainMessage) app.elements.goods.append(app.elements.mainMessage);
       else showMessage('no-matches');
@@ -104,7 +105,7 @@ const controller = {
 
   draw() {
     app.elements.goods.textContent = '';
-    app.isThereMessage = false;
+    app.currentMessageType = null;
     controller.sortData();
 
     controller.data.forEach((item) => {

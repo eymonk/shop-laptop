@@ -1,5 +1,6 @@
-import controller from './controller';
 import app from './app';
+import { showMessage } from './message/message';
+
 interface nodeToTranslate {
   node: HTMLElement;
   en: string;
@@ -55,6 +56,8 @@ function translate() {
     app.language = 'ru';
   }
   translateCards();
+  //to translate system message
+  if (app.currentMessageType) showMessage(app.currentMessageType);
 }
 
 addNodeToTranslate(
