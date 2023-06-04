@@ -82,7 +82,6 @@ const controller = {
   },
 
   checkMatches() {
-    console.log('check matches');
     if (!app.elements.goods.textContent) {
       if (app.elements.mainMessage) app.elements.goods.append(app.elements.mainMessage);
       else showMessage('no-matches');
@@ -95,7 +94,7 @@ const controller = {
 
     if (idValue) {
       if (!app.cartItems.includes(id)) app.cartItems.push(id);
-      const cartCountElement = document.querySelector('.cart__count') as HTMLParagraphElement;
+      const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
       cartCountElement.textContent = `${app.cartItems.length}`;
       result = true;
     }

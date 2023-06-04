@@ -1,0 +1,25 @@
+@use '../../assets/sass/box-model' as box;
+@use '../../assets/sass/colors';
+
+.cart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  min-height: 100vh;
+  z-index: 2;
+  background: colors.$black-transparent-dark-extra;
+
+  &__title {
+    @include box.padding-block-standard;
+    font-size: box.$gap-large-extra-2;
+  }
+
+  &__btn_close {
+    position: absolute;
+    top: box.$gap-large;
+    right: box.$gap-large;
+    font-weight: bold;
+    font-size: box.$gap-large;
+  }
+}

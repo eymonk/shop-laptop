@@ -2,8 +2,9 @@
 @use './components/header/header';
 @use './components/goods/goods';
 @use './components/search/search';
-@use './components/footer/footer';
 @use './components/message/message';
+@use './components/cart/cart';
+@use './components/footer/footer';
 
 /* assets */
 @use './assets/sass/colors';
@@ -38,6 +39,10 @@ body {
 .main {
   position: relative;
   display: flex;
+}
+
+.hidden {
+  display: none;
 }
 
 

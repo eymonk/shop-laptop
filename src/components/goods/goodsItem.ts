@@ -68,7 +68,7 @@ class Card {
 
   addToCart() {
     const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
-    const cartCountElement = document.querySelector('.cart__count') as HTMLParagraphElement;
+    const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
 
     app.cartItems.push(this.#itemData.id);
     app.saveSettings();
@@ -79,7 +79,7 @@ class Card {
 
   removeFromCart() {
     const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
-    const cartCountElement = document.querySelector('.cart__count') as HTMLParagraphElement;
+    const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
     const indexInCart = app.cartItems.indexOf(this.#itemData.id);
 
     app.cartItems.splice(indexInCart, 1);

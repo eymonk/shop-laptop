@@ -10,6 +10,7 @@
   background-color: colors.$black-transparent;
 
   &__link {
+    cursor: pointer;
     width: 3.5rem;
     transition: transform animations.$transition-fast;
 
@@ -36,7 +37,7 @@
       @include animations.rotate-180;
     }
   }
-  & .cart {
+  &__link_cart {
     position: relative;
     margin-left: auto;
     transition: animations.$transition-medium;
@@ -44,20 +45,19 @@
     &:hover {
       @include animations.ride-left;
     }
+  }
+  &__cart-count {
+    position: absolute;
+    top: 0.5rem;
+    left: -0.7rem;
 
-    &__count {
-      position: absolute;
-      top: 0.5rem;
-      left: -0.7rem;
+    padding: 0px box.$gap-small;
+    font-weight: bold;
 
-      padding: 0px box.$gap-small;
-      font-weight: bold;
-
-      color: colors.$black;
-      background-color: colors.$white;
-      border: box.$border-small-accent;
-      border-radius: box.$border-radius-standard;
-    }
+    color: colors.$black;
+    background-color: colors.$white;
+    border: box.$border-small-accent;
+    border-radius: box.$border-radius-standard;
   }
 
   &__title-wrapper {
@@ -71,13 +71,11 @@
       font-size: 1.5rem;
     }
 
-    & .cart {
-      &__count {
-        font-size: 0.7rem;
-        top: 0.2rem;
-        left: -0.6rem;
-        padding: 0px 3px;
-      }
+    &__cart-count {
+      font-size: 0.7rem;
+      top: 0.2rem;
+      left: -0.6rem;
+      padding: 0px 3px;
     }
   }
 
@@ -94,15 +92,13 @@
       font-size: 0.8rem;
     }
 
-    & .cart {
-      &__count {
-        font-size: 0.7rem;
-        top: 0.2rem;
-        left: -0.6rem;
-  
-        padding: 0px 3px;
-        font-weight: bold;
-      }
+    &__cart-count {
+      font-size: 0.7rem;
+      top: 0.2rem;
+      left: -0.6rem;
+
+      padding: 0px 3px;
+      font-weight: bold;
     }
   }
 }

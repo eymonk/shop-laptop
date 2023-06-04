@@ -19,9 +19,9 @@
         <h1 class="header__title">shop-laptop</h1>
         <p class="header__subtitle">your favourite device is near</p>
       </div>
-      <a class="header__link header__link_cart cart" href="#">
+      <a class="header__link header__link_cart">
         <img class="header__icon" src="svg/cart.svg" alt="shopping cart icon">
-        <p class="cart__count">0</p>
+        <p class="header__cart-count">0</p>
       </a>
       <button class="header__btn header__btn_translate">
         <img class="header__icon" src="svg/translate.svg" alt="translation icon">
@@ -197,6 +197,11 @@
         </div>
       </template>
     </main>
+
+    <div class="cart hidden">
+      <button class="cart__btn cart__btn_close">×</button>
+      <h2 class="cart__title">Cart</h2>
+    </div>
 
     <footer class="footer">
       <a class="footer__link" href="https://t.me/jaysun0" target="_blank">

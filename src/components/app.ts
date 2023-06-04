@@ -33,7 +33,7 @@ const app: App = {
   selects: {},
   cartItems: [],
   elements: {
-    cart: document.querySelector('.cart') as HTMLElement,
+    cart: document.querySelector('.header__link_cart') as HTMLElement,
     goods: document.querySelector('.goods') as HTMLElement,
   },
 
