@@ -1,6 +1,6 @@
 import app from '../app';
 import { translateCard } from '../translator';
-import { cartItemsIds } from "../cart/cart";
+import { cartItemsIds, createCartElement } from '../cart/cart';
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 
@@ -36,14 +36,15 @@ class Card {
 
     const goodsSection = document.querySelector('.goods');
     const card = (clone as HTMLElement).querySelector('.goods__card') as HTMLDivElement;
-    const img = (clone as HTMLElement).querySelector('.goods__card-img');
+    const img = (clone as HTMLElement).querySelector('.goods__card-img') as HTMLImageElement;
 
+    card.id = `good-card-${itemData.id}`;
     card.addEventListener('click', () => {
       if (this.inCart) this.removeFromCart();
       else this.addToCart();
     });
 
-    img?.setAttribute('src', `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${itemData.id}.jpg?raw=true`);
+    img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${itemData.id}.jpg?raw=true`;
     goodsSection?.appendChild(card);
     this.element = card;
     translateCard(card);
@@ -76,6 +77,13 @@ class Card {
     this.inCart = true;
     cartIcon.style.display = 'block';
     cartCountElement.textContent = `${cartItemsIds.length}`;
+    createCartElement(
+      this.#itemData.id,
+      this.#itemData.color,
+      this.#itemData.brand,
+      this.#itemData.model,
+      this.#itemData.year
+    );
   }
 
   removeFromCart() {

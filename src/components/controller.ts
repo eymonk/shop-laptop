@@ -8,7 +8,7 @@ import Select from './search/Select';
 import data from '../assets/goods';
 import app from './app';
 import { showMessage } from './message/message';
-import { cartItemsIds } from "./cart/cart";
+import { cartItemsIds } from './cart/cart';
 
 const controller = {
   data: [...data],
