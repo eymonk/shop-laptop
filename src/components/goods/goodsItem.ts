@@ -71,12 +71,8 @@ class Card {
   addToCart() {
     const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
     const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
-
-    cartItemsIds.push(this.#itemData.id);
-    app.saveSettings();
     this.inCart = true;
     cartIcon.style.display = 'block';
-    cartCountElement.textContent = `${cartItemsIds.length}`;
     createCartElement(
       this.#itemData.id,
       this.#itemData.color,
@@ -84,6 +80,9 @@ class Card {
       this.#itemData.model,
       this.#itemData.year
     );
+    cartItemsIds.push(this.#itemData.id);
+    cartCountElement.textContent = `${cartItemsIds.length}`;
+    app.saveSettings();
   }
 
   removeFromCart() {

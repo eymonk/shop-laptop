@@ -1,6 +1,6 @@
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
 import SoleCheckbox from './search/SoleCheckbox';
-import { Card } from './goods/goodsItem';
+import { Card, LaptopData } from "./goods/goodsItem";
 import Checkbox from './search/Checkbox';
 import filters from './search/filters';
 import Search from './search/Search';
@@ -8,7 +8,7 @@ import Select from './search/Select';
 import data from '../assets/goods';
 import app from './app';
 import { showMessage } from './message/message';
-import { cartItemsIds } from './cart/cart';
+import { cartItemsIds, createCartElement } from "./cart/cart";
 
 const controller = {
   data: [...data],
@@ -89,14 +89,15 @@ const controller = {
     }
   },
 
-  checkCart(id: number) {
+  checkCart(item: LaptopData) {
     let result = false;
-    const idValue = localStorage.getItem(`cart-item-id${id}`);
+    const idValue = localStorage.getItem(`cart-item-id${item.id}`);
 
     if (idValue) {
-      if (!cartItemsIds.includes(id)) cartItemsIds.push(id);
       const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
       cartCountElement.textContent = `${cartItemsIds.length}`;
+      createCartElement(item.id, item.color, item.brand, item.model, item.year);
+      if (!cartItemsIds.includes(item.id)) cartItemsIds.push(item.id);
       result = true;
     }
 
@@ -119,7 +120,7 @@ const controller = {
       if (!filters.checkbox(item, 'size')) result = false;
       if (!filters.soleCheckbox(item, 'gaming', false)) result = false;
       if (!filters.soleCheckbox(item, 'popular', true)) result = false;
-      const inCart = controller.checkCart(item.id);
+      const inCart = controller.checkCart(item);
 
       if (result) {
         const card = new Card(item);

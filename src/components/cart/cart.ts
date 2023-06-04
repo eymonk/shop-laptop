@@ -17,19 +17,21 @@ function addToCart(element: HTMLDivElement) {
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {
-  const cardItemTemplate = document.querySelector('.template__cart-item') as HTMLTemplateElement;
-  const cartItem = cardItemTemplate.content.cloneNode(true) as HTMLDivElement;
-  const cartItemImg = cartItem.querySelector('.cart-item__img') as HTMLImageElement;
-  const cartItemColor = cartItem.querySelector('.cart-item__color') as HTMLParagraphElement;
-  const cartItemBrand = cartItem.querySelector('.cart-item__brand') as HTMLParagraphElement;
-  const cartItemModel = cartItem.querySelector('.cart-item__model') as HTMLParagraphElement;
-  const cartItemYear = cartItem.querySelector('.cart-item__year') as HTMLParagraphElement;
-  cartItemImg.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${id}.jpg?raw=true`;
-  cartItemColor.textContent = color;
-  cartItemBrand.textContent = brand;
-  cartItemModel.textContent = model;
-  cartItemYear.textContent = `${year}`;
-  addToCart(cartItem);
+  if (!cartItemsIds.includes(id)) {
+    const cardItemTemplate = document.querySelector('.template__cart-item') as HTMLTemplateElement;
+    const cartItem = cardItemTemplate.content.cloneNode(true) as HTMLDivElement;
+    const cartItemImg = cartItem.querySelector('.cart-item__img') as HTMLImageElement;
+    const cartItemColor = cartItem.querySelector('.cart-item__color') as HTMLParagraphElement;
+    const cartItemBrand = cartItem.querySelector('.cart-item__brand') as HTMLParagraphElement;
+    const cartItemModel = cartItem.querySelector('.cart-item__model') as HTMLParagraphElement;
+    const cartItemYear = cartItem.querySelector('.cart-item__year') as HTMLParagraphElement;
+    cartItemImg.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${id}.jpg?raw=true`;
+    cartItemColor.textContent = color;
+    cartItemBrand.textContent = brand;
+    cartItemModel.textContent = model;
+    cartItemYear.textContent = `${year}`;
+    addToCart(cartItem);
+  }
 }
 
 const cartIcon = document.querySelector('.header__link_cart') as HTMLAnchorElement;
