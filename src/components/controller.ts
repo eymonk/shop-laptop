@@ -8,6 +8,7 @@ import Select from './search/Select';
 import data from '../assets/goods';
 import app from './app';
 import { showMessage } from './message/message';
+import { cartItemsIds } from "./cart/cart";
 
 const controller = {
   data: [...data],
@@ -93,9 +94,9 @@ const controller = {
     const idValue = localStorage.getItem(`cart-item-id${id}`);
 
     if (idValue) {
-      if (!app.cartItems.includes(id)) app.cartItems.push(id);
+      if (!cartItemsIds.includes(id)) cartItemsIds.push(id);
       const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
-      cartCountElement.textContent = `${app.cartItems.length}`;
+      cartCountElement.textContent = `${cartItemsIds.length}`;
       result = true;
     }
 

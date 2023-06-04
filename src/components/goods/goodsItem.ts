@@ -1,5 +1,6 @@
 import app from '../app';
 import { translateCard } from '../translator';
+import { cartItemsIds } from "../cart/cart";
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 
@@ -70,23 +71,23 @@ class Card {
     const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
     const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
 
-    app.cartItems.push(this.#itemData.id);
+    cartItemsIds.push(this.#itemData.id);
     app.saveSettings();
     this.inCart = true;
     cartIcon.style.display = 'block';
-    cartCountElement.textContent = `${app.cartItems.length}`;
+    cartCountElement.textContent = `${cartItemsIds.length}`;
   }
 
   removeFromCart() {
     const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
     const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
-    const indexInCart = app.cartItems.indexOf(this.#itemData.id);
+    const indexInCart = cartItemsIds.indexOf(this.#itemData.id);
 
-    app.cartItems.splice(indexInCart, 1);
+    cartItemsIds.splice(indexInCart, 1);
     app.saveSettings();
     this.inCart = false;
     cartIcon.style.display = 'none';
-    cartCountElement.textContent = `${app.cartItems.length}`;
+    cartCountElement.textContent = `${cartItemsIds.length}`;
     localStorage.removeItem(`cart-item-id${this.#itemData.id}`);
     if (app.elements.mainMessage) app.elements.mainMessage.remove();
   }

@@ -4,6 +4,7 @@ import Select from './search/Select';
 import Checkbox from './search/Checkbox';
 import SoleCheckbox from './search/SoleCheckbox';
 import { Message } from './message/message';
+import { cartItemsIds } from './cart/cart';
 
 interface App {
   currentMessageType: Message;
@@ -13,7 +14,6 @@ interface App {
   filters: { [key: string]: { [key: string]: Checkbox } };
   soleCheckboxes: { [key: string]: SoleCheckbox };
   selects: { [key: string]: Select };
-  cartItems: number[];
   elements: { [key: string]: Element };
 
   saveRangeSettings: () => void;
@@ -31,7 +31,6 @@ const app: App = {
   filters: {},
   soleCheckboxes: {},
   selects: {},
-  cartItems: [],
   elements: {
     cart: document.querySelector('.header__link_cart') as HTMLElement,
     goods: document.querySelector('.goods') as HTMLElement,
@@ -65,7 +64,7 @@ const app: App = {
     this.saveRangeSettings();
     this.saveFilterSettings();
     this.saveSoleCheckboxes();
-    this.cartItems.forEach((id) => {
+    cartItemsIds.forEach((id) => {
       localStorage.setItem(`cart-item-id${id}`, `${id}`);
     });
   },

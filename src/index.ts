@@ -1,9 +1,5 @@
 import controller from './components/controller';
 import app from './components/app';
-import './components/search/reset';
-import './components/translator';
-import './components/cart/cart';
-
 import './assets/svg/telegram-icon.svg';
 import './assets/svg/github-icon.svg';
 import './assets/svg/page-icon.svg';
