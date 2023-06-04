@@ -1,7 +1,10 @@
+import app from '../app';
 
 const cart = document.querySelector('.cart') as HTMLDivElement;
 
 function openCart() {
+  const itemsCounter = document.querySelector('.cart__counter-number') as HTMLSpanElement;
+  itemsCounter.textContent = `${app.cartItems.length}`;
   cart.classList.remove('hidden');
 }
 

@@ -22,4 +22,15 @@
     font-weight: bold;
     font-size: box.$gap-large;
   }
+
+  &__counter {
+    padding: box.$gap-small box.$gap-large;
+    font-size: box.$gap-large;
+  }
+
+  &__counter-number {
+    color: colors.$accent;
+    font-size: box.$gap-large-extra;
+    font-weight: bold;
+  }
 }
