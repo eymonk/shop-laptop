@@ -1,6 +1,22 @@
 import app from './app';
 import { showMessage } from './message/message';
 
+type Color = 'blue' | 'синий' | 'gray' | 'серый' | 'black' | 'чёрный' | 'white' | 'белый';
+interface ColorsDictionary {
+  [key: string]: Color;
+}
+
+const colorsDictionary: ColorsDictionary = {
+  white: 'белый',
+  белый: 'white',
+  blue: 'синий',
+  синий: 'blue',
+  gray: 'серый',
+  серый: 'gray',
+  black: 'чёрный',
+  чёрный: 'black',
+};
+
 interface nodeToTranslate {
   node: HTMLElement;
   en: string;
@@ -40,9 +56,21 @@ function translateCard(card: Element) {
   popularLabel.textContent = app.language === 'en' ? 'popular' : 'популярный';
 }
 
+function translateColor(color: Color) {
+  return colorsDictionary[color];
+}
+
 function translateCards() {
   const cards = document.querySelectorAll('.goods__card');
   cards.forEach((card) => translateCard(card));
+}
+
+function translateCartItems() {
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach((item) => {
+    const colorText = item.querySelector('.cart-item__color') as HTMLParagraphElement;
+    colorText.textContent = translateColor(colorText.textContent as Color);
+  });
 }
 
 function translate() {
@@ -56,6 +84,7 @@ function translate() {
     app.language = 'ru';
   }
   translateCards();
+  translateCartItems();
   //to translate system message
   if (app.currentMessageType) showMessage(app.currentMessageType);
 }
@@ -145,6 +174,13 @@ addPlaceholderToTranslate(
   document.querySelector('.search_main') as HTMLInputElement,
   'brand / model',
   'бренд / модель'
+);
+
+addNodeToTranslate(document.querySelector('.cart__title') as HTMLInputElement, 'Your cart', 'Твоя корзина');
+addNodeToTranslate(
+  document.querySelector('.cart__counter-text') as HTMLInputElement,
+  'items added: ',
+  'товаров добавлено:'
 );
 
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;

@@ -26,14 +26,18 @@
   }
 
   &__counter {
+    display: flex;
+    align-items: flex-end;
+    gap: box.$gap-small;
     padding: box.$gap-small box.$gap-large;
     font-size: box.$gap-large;
   }
 
   &__counter-number {
     color: colors.$accent;
-    font-size: box.$gap-large-extra;
+    font-size: 2rem;
     font-weight: bold;
+    transform: translateY(2px);
   }
 
   &__items {
