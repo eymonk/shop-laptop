@@ -1,6 +1,7 @@
 import app from '../app';
 import { translateCard } from '../translator';
 import { cartItemsIds, createCartElement } from '../cart/cart';
+import controller from "../controller";
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 
@@ -16,14 +17,25 @@ interface LaptopData {
   popular: string;
 }
 
+function removeFromCart(id: number) {
+  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
+  const cartIcon = card.querySelector('.goods__icon_in-cart') as HTMLDivElement;
+  const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
+  const indexInCart = cartItemsIds.indexOf(id);
+
+  cartItemsIds.splice(indexInCart, 1);
+  app.saveSettings();
+  cartIcon.style.display = 'none';
+  cartCountElement.textContent = `${cartItemsIds.length}`;
+  localStorage.removeItem(`cart-item-id${id}`);
+  if (app.elements.mainMessage) app.elements.mainMessage.remove();
+}
+
 class Card {
   #itemData: LaptopData;
   element: HTMLDivElement;
-  inCart: boolean;
-
   constructor(itemData: LaptopData) {
     this.#itemData = itemData;
-    this.inCart = false;
 
     const [clone, itemElements] = this.#createClone();
     itemData = this.#itemData;
@@ -38,13 +50,13 @@ class Card {
     const card = (clone as HTMLElement).querySelector('.goods__card') as HTMLDivElement;
     const img = (clone as HTMLElement).querySelector('.goods__card-img') as HTMLImageElement;
 
-    card.id = `good-card-${itemData.id}`;
+    card.id = `good-card-${this.#itemData.id}`;
     card.addEventListener('click', () => {
-      if (this.inCart) this.removeFromCart();
+      if (cartItemsIds.includes(this.#itemData.id)) controller.deleteItemFromCart(this.#itemData.id);
       else this.addToCart();
     });
 
-    img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${itemData.id}.jpg?raw=true`;
+    img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${this.#itemData.id}.jpg?raw=true`;
     goodsSection?.appendChild(card);
     this.element = card;
     translateCard(card);
@@ -69,9 +81,8 @@ class Card {
   }
 
   addToCart() {
-    const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
+    const cartIcon = this.element.querySelector('.goods__icon_in-cart') as HTMLDivElement;
     const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
-    this.inCart = true;
     cartIcon.style.display = 'block';
     createCartElement(
       this.#itemData.id,
@@ -84,20 +95,6 @@ class Card {
     cartCountElement.textContent = `${cartItemsIds.length}`;
     app.saveSettings();
   }
-
-  removeFromCart() {
-    const cartIcon = this.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
-    const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
-    const indexInCart = cartItemsIds.indexOf(this.#itemData.id);
-
-    cartItemsIds.splice(indexInCart, 1);
-    app.saveSettings();
-    this.inCart = false;
-    cartIcon.style.display = 'none';
-    cartCountElement.textContent = `${cartItemsIds.length}`;
-    localStorage.removeItem(`cart-item-id${this.#itemData.id}`);
-    if (app.elements.mainMessage) app.elements.mainMessage.remove();
-  }
 }
 
-export { LaptopData, Card, itemKeys };
+export { LaptopData, Card, itemKeys, removeFromCart };

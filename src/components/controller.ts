@@ -1,6 +1,6 @@
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
 import SoleCheckbox from './search/SoleCheckbox';
-import { Card, LaptopData } from './goods/goodsItem';
+import {Card, LaptopData, removeFromCart} from './goods/goodsItem';
 import Checkbox from './search/Checkbox';
 import filters from './search/filters';
 import Search from './search/Search';
@@ -104,6 +104,12 @@ const controller = {
     return result;
   },
 
+  deleteItemFromCart(id: number) {
+    const cartItemElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
+    cartItemElement.remove();
+    removeFromCart(id);
+  },
+
   draw() {
     app.elements.goods.textContent = '';
     app.currentMessageType = null;
@@ -126,8 +132,7 @@ const controller = {
         const card = new Card(item);
 
         if (inCart) {
-          const cartIcon = card.element.querySelector('.goods__card_in-cart') as HTMLDivElement;
-          card.inCart = true;
+          const cartIcon = card.element.querySelector('.goods__icon_in-cart') as HTMLImageElement;
           cartIcon.style.display = 'block';
         }
       }

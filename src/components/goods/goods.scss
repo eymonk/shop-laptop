@@ -35,14 +35,14 @@
     &:hover .goods__card-img {
       @include animations.scale-small;
     }
+  }
 
-    &_in-cart {
-      display: none;
-      position: absolute;
-      width: 2rem;
-      top: box.$gap-small;
-      right: box.$gap-small;
-    }
+  &__icon_in-cart {
+    display: none;
+    position: absolute;
+    width: 2rem;
+    top: box.$gap-small;
+    right: box.$gap-small;
   }
 
   &__title {
