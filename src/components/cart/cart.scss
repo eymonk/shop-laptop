@@ -44,6 +44,7 @@
   }
 
   &-item {
+    position: relative;
     display: flex;
     width: 30%;
     min-width: 400px;
@@ -53,6 +54,25 @@
     border-radius: box.$border-radius-standard;
     border: box.$border-large-accent;
     cursor: pointer;
+
+    &__btn-icon {
+      width: 30px;
+    }
+
+    &__btn {
+      border-radius: box.$border-radius-standard;
+
+      &:hover {
+        background-color: colors.$white;
+      }
+
+      &_delete {
+        padding: 0 3px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
 
     &__img {
       max-width: 200px;

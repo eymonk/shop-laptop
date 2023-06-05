@@ -4,6 +4,7 @@ import './components/search/reset';
 import './assets/svg/telegram-icon.svg';
 import './assets/svg/github-icon.svg';
 import './assets/svg/page-icon.svg';
+import './assets/svg/trash-bin.svg';
 import './assets/svg/translate.svg';
 import './assets/svg/search.svg';
 import './assets/svg/close.svg';
