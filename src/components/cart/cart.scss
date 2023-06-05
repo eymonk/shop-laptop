@@ -1,7 +1,9 @@
 @use '../../assets/sass/box-model' as box;
 @use '../../assets/sass/colors';
+@use '../../assets/sass/animations';
 
 .cart {
+  @include box.padding-block-standard;
   position: absolute;
   top: 0;
   right: 0;
@@ -32,5 +34,48 @@
     color: colors.$accent;
     font-size: box.$gap-large-extra;
     font-weight: bold;
+  }
+
+  &__items {
+    @include box.padding-inline-standard-2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: box.$gap-large;
+  }
+
+  &-item {
+    display: flex;
+    width: 30%;
+    min-width: 400px;
+    max-width: 440px;
+    background: colors.$accent;
+    color: colors.$black;
+    border-radius: box.$border-radius-standard;
+    border: box.$border-large-accent;
+    cursor: pointer;
+
+    &__img {
+      max-width: 200px;
+      max-height: 160px;
+      border-radius: box.$border-radius-standard;
+    }
+
+    &__props {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: box.$gap-standard;
+      gap: box.$gap-small;
+    }
+
+    &__props-wrapper {
+      display: flex;
+      gap: box.$gap-small;
+    }
+
+    &__brand {
+      font-weight: bold;
+      color: colors.$white;
+    }
   }
 }

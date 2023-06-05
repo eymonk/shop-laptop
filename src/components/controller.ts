@@ -1,6 +1,6 @@
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
 import SoleCheckbox from './search/SoleCheckbox';
-import { Card, LaptopData } from "./goods/goodsItem";
+import { Card, LaptopData } from './goods/goodsItem';
 import Checkbox from './search/Checkbox';
 import filters from './search/filters';
 import Search from './search/Search';
@@ -8,7 +8,7 @@ import Select from './search/Select';
 import data from '../assets/goods';
 import app from './app';
 import { showMessage } from './message/message';
-import { cartItemsIds, createCartElement } from "./cart/cart";
+import { cartItemsIds, createCartElement } from './cart/cart';
 
 const controller = {
   data: [...data],
