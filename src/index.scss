@@ -45,6 +45,11 @@ body {
   display: none;
 }
 
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
 
 /*** INPUTS ***/
 .input-wrapper {

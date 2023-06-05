@@ -5,10 +5,12 @@ function openCart() {
   const itemsCounter = document.querySelector('.cart__counter-number') as HTMLSpanElement;
   itemsCounter.textContent = `${cartItemsIds.length}`;
   cartElement.classList.remove('hidden');
+  document.body.classList.add('stop-scrolling');
 }
 
 function closeCart() {
   cartElement.classList.add('hidden');
+  document.body.classList.remove('stop-scrolling');
 }
 
 function addToCart(element: HTMLDivElement) {
