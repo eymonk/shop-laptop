@@ -6,6 +6,10 @@ interface ColorsDictionary {
   [key: string]: Color;
 }
 
+interface Dictionary {
+  [key: string]: string;
+}
+
 const colorsDictionary: ColorsDictionary = {
   white: 'белый',
   белый: 'white',
@@ -15,6 +19,19 @@ const colorsDictionary: ColorsDictionary = {
   серый: 'gray',
   black: 'чёрный',
   чёрный: 'black',
+};
+
+const dictionary: Dictionary = {
+  yes: 'да',
+  да: 'yes',
+  no: 'нет',
+  нет: 'no',
+  маленький: 'small',
+  small: 'маленький',
+  large: 'большой',
+  большой: 'large',
+  medium: 'средний',
+  средний: 'medium',
 };
 
 interface nodeToTranslate {
@@ -54,10 +71,24 @@ function translateCard(card: Element) {
   colorLabel.textContent = app.language === 'en' ? 'color' : 'цвет';
   gamingLabel.textContent = app.language === 'en' ? 'gaming' : 'игровой';
   popularLabel.textContent = app.language === 'en' ? 'popular' : 'популярный';
+  const colorValue = card.querySelector('.goods__feature_color') as HTMLSpanElement;
+  colorValue.textContent = translateColor(colorValue.textContent as Color);
+  const gamingValue = card.querySelector('.goods__feature_gaming') as HTMLSpanElement;
+  gamingValue.textContent = translateWord(gamingValue.textContent as string);
+  const popularValue = card.querySelector('.goods__feature_popular') as HTMLSpanElement;
+  popularValue.textContent = translateWord(popularValue.textContent as string);
+  const sizeValue = card.querySelector('.goods__feature_size') as HTMLSpanElement;
+  sizeValue.textContent = translateWord(sizeValue.textContent as string);
+}
+
+function translateWord(word: string) {
+  const result = dictionary[word];
+  return result ? result : word;
 }
 
 function translateColor(color: Color) {
-  return colorsDictionary[color];
+  const result = colorsDictionary[color];
+  return result ? result : color;
 }
 
 function translateCards() {
@@ -185,5 +216,3 @@ addNodeToTranslate(
 
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
 translateBtn.addEventListener('click', translate);
-
-export { translateCard };
