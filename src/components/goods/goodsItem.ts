@@ -17,17 +17,18 @@ interface LaptopData {
 }
 
 function removeFromCart(id: number) {
-  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
-  const cartIcon = card.querySelector('.goods__icon_in-cart') as HTMLDivElement;
   const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
   const indexInCart = cartItemsIds.indexOf(id);
-
+  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
   cartItemsIds.splice(indexInCart, 1);
-  app.saveSettings();
-  cartIcon.style.display = 'none';
+  if (card) {
+    const cartIcon = card.querySelector('.goods__icon_in-cart') as HTMLDivElement;
+    cartIcon.style.display = 'none';
+  }
   cartCountElement.textContent = `${cartItemsIds.length}`;
   localStorage.removeItem(`cart-item-id${id}`);
   if (app.elements.mainMessage) app.elements.mainMessage.remove();
+  app.saveSettings();
 }
 
 class Card {

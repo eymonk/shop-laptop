@@ -110,7 +110,6 @@ function translate(lang: Language) {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.en));
     app.language = 'en';
-    console.log('NOW LANG IS EN');
   } else {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.ru));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.ru));
