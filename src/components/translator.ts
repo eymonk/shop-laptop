@@ -1,5 +1,5 @@
-import app from './app';
 import { showMessage } from './message/message';
+import app from './app';
 
 type Language = 'en' | 'ru';
 type Color = 'blue' | 'синий' | 'gray' | 'серый' | 'black' | 'чёрный' | 'white' | 'белый';
@@ -120,6 +120,7 @@ function translate(lang: Language) {
   translateCartItems();
   //to translate system message
   if (app.currentMessageType) showMessage(app.currentMessageType);
+  localStorage.setItem('language', lang);
 }
 
 addNodeToTranslate(
@@ -220,3 +221,4 @@ const translateBtn = document.querySelector('.header__btn_translate') as HTMLBut
 translateBtn.addEventListener('click', () => translate(app.language === 'en' ? 'ru' : 'en'));
 
 export default translate;
+export { Language };

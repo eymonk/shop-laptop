@@ -1,15 +1,15 @@
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
+import { Card, LaptopData, removeFromCart } from './goods/goodsItem';
+import { cartItemsIds, createCartElement } from './cart/cart';
 import SoleCheckbox from './search/SoleCheckbox';
-import { Card, LaptopData, removeFromCart} from './goods/goodsItem';
+import { showMessage } from './message/message';
 import Checkbox from './search/Checkbox';
 import filters from './search/filters';
+import translate from './translator';
 import Search from './search/Search';
 import Select from './search/Select';
 import data from '../assets/goods';
 import app from './app';
-import { showMessage } from './message/message';
-import { cartItemsIds, createCartElement } from './cart/cart';
-import translate from './translator';
 
 const controller = {
   data: [...data],

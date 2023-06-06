@@ -1,10 +1,11 @@
 import { DoubleRange } from './search/DoubleRange';
-import Search from './search/Search';
-import Select from './search/Select';
-import Checkbox from './search/Checkbox';
+import translate, { Language } from './translator';
 import SoleCheckbox from './search/SoleCheckbox';
 import { Message } from './message/message';
 import { cartItemsIds } from './cart/cart';
+import Checkbox from './search/Checkbox';
+import Search from './search/Search';
+import Select from './search/Select';
 
 interface App {
   currentMessageType: Message;
@@ -138,6 +139,8 @@ const app: App = {
       else currentBox.element.classList.remove('checkboxes__box_active');
       currentBox.status = statusValue;
     });
+    //language
+    translate(localStorage.getItem('language') as Language);
   },
 };
 
