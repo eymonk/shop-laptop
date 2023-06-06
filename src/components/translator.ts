@@ -66,12 +66,14 @@ function translateCard(card: Element) {
   const popularLabel = card.querySelector('.goods__feature-label_popular') as HTMLParagraphElement;
   const colorLabel = card.querySelector('.goods__feature-label_color') as HTMLParagraphElement;
   const sizeLabel = card.querySelector('.goods__feature-label_size') as HTMLParagraphElement;
+  const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
   stockLabel.textContent = app.language === 'en' ? 'in stock' : 'на складе';
   yearLabel.textContent = app.language === 'en' ? 'release year' : 'год выхода';
   sizeLabel.textContent = app.language === 'en' ? 'size' : 'размер';
   colorLabel.textContent = app.language === 'en' ? 'color' : 'цвет';
   gamingLabel.textContent = app.language === 'en' ? 'gaming' : 'игровой';
   popularLabel.textContent = app.language === 'en' ? 'popular' : 'популярный';
+  btnAddToCart.textContent = app.language === 'en' ? 'add to cart' : 'добавить в корзину';
   const colorValue = card.querySelector('.goods__feature_color') as HTMLSpanElement;
   colorValue.textContent = translateColor(colorValue.textContent as Color);
   const gamingValue = card.querySelector('.goods__feature_gaming') as HTMLSpanElement;

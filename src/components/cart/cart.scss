@@ -79,9 +79,10 @@
     }
 
     &__img {
-      max-width: 200px;
-      max-height: 160px;
+      width: 200px;
+      height: 150px;
       border-radius: box.$border-radius-standard;
+      object-fit: cover;
     }
 
     &__props {

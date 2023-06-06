@@ -15,23 +15,19 @@
   font-size: 1.1rem;
 
   &__card {
-    position: relative;
-    @include box.padding-block-standard;
+    position: relative;;
+    padding: box.$gap-large box.$gap-large-extra;
     width: calc(1rem * 15);
     display: flex;
     flex-direction: column;
     gap: box.$gap-small;
 
-    border: box.$border-large-accent;
     border-radius: box.$border-radius-standard;
     background-color: colors.$accent-transparent;
     color: colors.$black;
     transition: animations.$transition-medium;
     cursor: pointer;
 
-    &:hover {
-      @include animations.border-white;
-    }
     &:hover .goods__card-img {
       @include animations.scale-small;
     }
@@ -52,6 +48,7 @@
 
   &__brand {
     font-size: 1.4rem;
+    font-weight: bold;
   }
 
   &__model {
@@ -81,5 +78,10 @@
       color: colors.$white;
       font-weight: bold;
     }
+  }
+
+  &__btn_add {
+    margin-top: box.$gap-small;
+    padding: box.$gap-small;
   }
 }

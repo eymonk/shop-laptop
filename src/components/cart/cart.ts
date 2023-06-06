@@ -1,6 +1,6 @@
 import controller from '../controller';
 import app from '../app';
-import {translateCard, translateCartItem} from "../translator";
+import { translateCartItem } from '../translator';
 
 const cartElement = document.querySelector('.cart') as HTMLDivElement;
 const itemsCounter = document.querySelector('.cart__counter-number') as HTMLSpanElement;

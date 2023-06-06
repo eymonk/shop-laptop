@@ -1,7 +1,6 @@
 import app from '../app';
 import { cartItemsIds, createCartElement } from '../cart/cart';
-import controller from '../controller';
-import {translateCard} from "../translator";
+import { translateCard } from '../translator';
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 
@@ -52,15 +51,12 @@ class Card {
     const img = (clone as HTMLElement).querySelector('.goods__card-img') as HTMLImageElement;
 
     card.id = `good-card-${this.#itemData.id}`;
-    card.addEventListener('click', () => {
-      if (cartItemsIds.includes(this.#itemData.id)) controller.deleteItemFromCart(this.#itemData.id);
-      else this.addToCart();
-    });
-
     img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${this.#itemData.id}.jpg?raw=true`;
     goodsSection?.appendChild(card);
     this.element = card;
     app.language === 'ru' && translateCard(card);
+    const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
+    btnAddToCart.addEventListener('click', () => this.addToCart());
   }
 
   #createClone() {
@@ -82,19 +78,21 @@ class Card {
   }
 
   addToCart() {
-    const cartIcon = this.element.querySelector('.goods__icon_in-cart') as HTMLDivElement;
-    const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
-    cartIcon.style.display = 'block';
-    createCartElement(
-      this.#itemData.id,
-      this.#itemData.color,
-      this.#itemData.brand,
-      this.#itemData.model,
-      this.#itemData.year
-    );
-    cartItemsIds.push(this.#itemData.id);
-    cartCountElement.textContent = `${cartItemsIds.length}`;
-    app.saveSettings();
+    if (!cartItemsIds.includes(this.#itemData.id)){
+      const cartIcon = this.element.querySelector('.goods__icon_in-cart') as HTMLDivElement;
+      const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
+      cartIcon.style.display = 'block';
+      createCartElement(
+        this.#itemData.id,
+        this.#itemData.color,
+        this.#itemData.brand,
+        this.#itemData.model,
+        this.#itemData.year
+      );
+      cartItemsIds.push(this.#itemData.id);
+      cartCountElement.textContent = `${cartItemsIds.length}`;
+      app.saveSettings();
+    }
   }
 }
 
