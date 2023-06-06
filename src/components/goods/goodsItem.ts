@@ -1,6 +1,7 @@
 import app from '../app';
 import { cartItemsIds, createCartElement } from '../cart/cart';
 import controller from '../controller';
+import {translateCard} from "../translator";
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 
@@ -32,7 +33,7 @@ function removeFromCart(id: number) {
 }
 
 class Card {
-  #itemData: LaptopData;
+  readonly #itemData: LaptopData;
   element: HTMLDivElement;
   constructor(itemData: LaptopData) {
     this.#itemData = itemData;
@@ -59,6 +60,7 @@ class Card {
     img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${this.#itemData.id}.jpg?raw=true`;
     goodsSection?.appendChild(card);
     this.element = card;
+    app.language === 'ru' && translateCard(card);
   }
 
   #createClone() {

@@ -5,7 +5,6 @@ import SoleCheckbox from './search/SoleCheckbox';
 import { showMessage } from './message/message';
 import Checkbox from './search/Checkbox';
 import filters from './search/filters';
-import translate from './translator';
 import Search from './search/Search';
 import Select from './search/Select';
 import data from '../assets/goods';
@@ -139,7 +138,6 @@ const controller = {
       }
     });
     controller.checkMatches();
-    if (app.language === 'ru') translate('ru');
   },
 };
 

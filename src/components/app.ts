@@ -110,7 +110,7 @@ const app: App = {
     Object.keys(this.filters).forEach((name) => {
       const filter = this.filters[name];
       Object.keys(filter).forEach((key) => {
-        let statusValue = true;
+        let statusValue: boolean;
         const value = localStorage.getItem(`filter-${name}-${key}`);
 
         if (value === 'false') {

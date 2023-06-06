@@ -1,4 +1,6 @@
 import controller from '../controller';
+import app from '../app';
+import {translateCard, translateCartItem} from "../translator";
 
 const cartElement = document.querySelector('.cart') as HTMLDivElement;
 const itemsCounter = document.querySelector('.cart__counter-number') as HTMLSpanElement;
@@ -42,6 +44,7 @@ function createCartElement(id: number, color: string, brand: string, model: stri
     const cartItemElement = cartItem.querySelector('.cart__item') as HTMLDivElement;
     cartItemElement.id = `cart-item-${id}`;
     addToCart(cartItem);
+    app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
   }
 }
 

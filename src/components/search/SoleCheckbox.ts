@@ -7,15 +7,13 @@ class SoleCheckbox {
   status: boolean;
 
   static setStatus(box: SoleCheckbox) {
-    if (box.status) box.status = false;
-    else box.status = true;
+    box.status = !box.status;
   }
 
   constructor(name: string) {
     this.name = name;
     this.element = document.querySelector(`.solebox-${name}`) as HTMLDivElement;
-    this.status = true;
-    if (name === 'popular') this.status = false;
+    this.status = name !== 'popular';
 
     app.soleCheckboxes[name] = this;
 

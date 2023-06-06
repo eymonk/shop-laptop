@@ -82,14 +82,9 @@ function translateCard(card: Element) {
   sizeValue.textContent = translateWord(sizeValue.textContent as string);
 }
 
-function translateWord(word: string) {
-  const result = dictionary[word];
-  return result ? result : word;
-}
-
-function translateColor(color: Color) {
-  const result = colorsDictionary[color];
-  return result ? result : color;
+function translateCartItem(item: Element) {
+  const colorText = item.querySelector('.cart-item__color') as HTMLParagraphElement;
+  colorText.textContent = translateColor(colorText.textContent as Color);
 }
 
 function translateCards() {
@@ -99,10 +94,17 @@ function translateCards() {
 
 function translateCartItems() {
   const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach((item) => {
-    const colorText = item.querySelector('.cart-item__color') as HTMLParagraphElement;
-    colorText.textContent = translateColor(colorText.textContent as Color);
-  });
+  cartItems.forEach((item) => translateCartItem(item));
+}
+
+function translateWord(word: string) {
+  const result = dictionary[word];
+  return result ? result : word;
+}
+
+function translateColor(color: Color) {
+  const result = colorsDictionary[color];
+  return result ? result : color;
 }
 
 function translate(lang: Language) {
@@ -209,7 +211,7 @@ addPlaceholderToTranslate(
   'бренд / модель'
 );
 
-addNodeToTranslate(document.querySelector('.cart__title') as HTMLInputElement, 'Your cart', 'Твоя корзина');
+addNodeToTranslate(document.querySelector('.cart__title') as HTMLInputElement, 'Cart', 'Корзина');
 addNodeToTranslate(
   document.querySelector('.cart__counter-text') as HTMLInputElement,
   'items added: ',
@@ -220,4 +222,4 @@ const translateBtn = document.querySelector('.header__btn_translate') as HTMLBut
 translateBtn.addEventListener('click', () => translate(app.language === 'en' ? 'ru' : 'en'));
 
 export default translate;
-export { Language };
+export { Language, translateCard, translateCartItem };
