@@ -3,14 +3,16 @@
 @use '../../assets/sass/animations';
 
 .cart {
+  overscroll-behavior: contain;
   @include box.padding-block-standard;
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
-  min-height: 100vh;
+  bottom: 0;
   z-index: 2;
   background: colors.$black-transparent-dark-extra;
+  overflow-y: scroll;
 
   &__title {
     @include box.padding-block-standard;
@@ -44,7 +46,7 @@
     @include box.padding-inline-standard-2;
     display: flex;
     flex-wrap: wrap;
-    gap: box.$gap-large;
+    gap: box.$gap-large-extra-2;
   }
 
   &-item {
@@ -53,10 +55,10 @@
     width: 30%;
     min-width: 400px;
     max-width: 440px;
-    background: colors.$accent;
+    background: colors.$gray;
     color: colors.$black;
     border-radius: box.$border-radius-standard;
-    border: box.$border-large-accent;
+    border: 5px solid colors.$gray;
     cursor: pointer;
 
     &__btn-icon {
@@ -65,6 +67,7 @@
 
     &__btn {
       border-radius: box.$border-radius-standard;
+      background-color: colors.$gray;
 
       &:hover {
         background-color: colors.$white;
@@ -79,8 +82,8 @@
     }
 
     &__img {
-      width: 200px;
-      height: 150px;
+      width: 220px;
+      height: 170px;
       border-radius: box.$border-radius-standard;
       object-fit: cover;
     }
@@ -101,7 +104,50 @@
     &__brand {
       z-index: 0;
       font-weight: bold;
-      color: colors.$white;
+      color: colors.$accent;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    &__title {
+      padding: 0 0 0 box.$gap-standard;
+    }
+
+    &__btn_close {
+      padding: 0 10px;
+    }
+
+    &__counter {
+      gap: box.$gap-small;
+      padding: box.$gap-small box.$gap-standard;
+      margin-top: box.$gap-standard;
+    }
+  }
+
+  @media screen and (max-width: 490px) {
+    &__items {
+      justify-content: center;
+    }
+
+    &-item {
+      flex-direction: column;
+      width: auto;
+      max-width: available;
+      min-width: auto;
+      &__btn {
+        &_delete {
+          padding: 0 3px;
+          position: absolute;
+          right: -4px;
+          top: -4px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    &__counter {
+      font-size: 1.3rem;
     }
   }
 }

@@ -33,12 +33,12 @@
     width: 30px;
   }
 
-  @media only screen and (max-width: 370px) {
+  @media only screen and (max-width: 270px) {
     flex-direction: column;
     gap: box.$gap-small;
 
     &__link {
-      padding-left: 0;
+      width: auto;
     }
   }
 }
