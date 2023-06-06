@@ -1,6 +1,6 @@
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
 import SoleCheckbox from './search/SoleCheckbox';
-import {Card, LaptopData, removeFromCart} from './goods/goodsItem';
+import { Card, LaptopData, removeFromCart} from './goods/goodsItem';
 import Checkbox from './search/Checkbox';
 import filters from './search/filters';
 import Search from './search/Search';
@@ -9,6 +9,7 @@ import data from '../assets/goods';
 import app from './app';
 import { showMessage } from './message/message';
 import { cartItemsIds, createCartElement } from './cart/cart';
+import translate from './translator';
 
 const controller = {
   data: [...data],
@@ -138,6 +139,7 @@ const controller = {
       }
     });
     controller.checkMatches();
+    if (app.language === 'ru') translate('ru');
   },
 };
 

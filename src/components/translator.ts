@@ -1,6 +1,7 @@
 import app from './app';
 import { showMessage } from './message/message';
 
+type Language = 'en' | 'ru';
 type Color = 'blue' | 'синий' | 'gray' | 'серый' | 'black' | 'чёрный' | 'white' | 'белый';
 interface ColorsDictionary {
   [key: string]: Color;
@@ -104,11 +105,12 @@ function translateCartItems() {
   });
 }
 
-function translate() {
-  if (app.language === 'ru') {
+function translate(lang: Language) {
+  if (lang === 'en') {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.en));
     app.language = 'en';
+    console.log('NOW LANG IS EN');
   } else {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.ru));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.ru));
@@ -215,4 +217,6 @@ addNodeToTranslate(
 );
 
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
-translateBtn.addEventListener('click', translate);
+translateBtn.addEventListener('click', () => translate(app.language === 'en' ? 'ru' : 'en'));
+
+export default translate;
