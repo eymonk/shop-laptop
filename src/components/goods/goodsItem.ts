@@ -1,5 +1,5 @@
 import app from '../app';
-import { addMore, cartItemsIds, createCartElement} from '../cart/cart';
+import { cartItemsIds, changeItemQuantity, createCartElement} from '../cart/cart';
 import { translateCard } from '../translator';
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
@@ -92,7 +92,7 @@ class Card {
       cartItemsIds.push(this.#itemData.id);
       cartCountElement.textContent = `${cartItemsIds.length}`;
       app.saveSettings();
-    } else addMore(this.#itemData.id);
+    } else changeItemQuantity(this.#itemData.id, 'add');
   }
 }
 

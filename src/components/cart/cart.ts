@@ -22,13 +22,24 @@ function addToCart(element: DocumentFragment) {
   cartItemsContainer.append(element);
 }
 
-function addMore(id: number) {
-  const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
+function changeItemQuantity(id: number, action: 'add' | 'remove') {
+  const headerCartCount = document.querySelector('.header__cart-count') as HTMLParagraphElement;
   const cartItem = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
   const cartItemQuantity = cartItem.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
-  cartItemsIds.push(id);
-  cartItemQuantity.textContent = `${Number(cartItemQuantity.textContent) + 1}`;
-  cartCountElement.textContent = `${cartItemsIds.length}`;
+  let newItemQuantity = cartItemQuantity.textContent;
+  if (action === 'add') {
+    newItemQuantity = `${Number(cartItemQuantity.textContent) + 1}`;
+    cartItemsIds.push(id);
+  } else if (Number(cartItemQuantity.textContent) > 1) {
+    newItemQuantity = `${Number(cartItemQuantity.textContent) - 1}`;
+    const indexInCart = cartItemsIds.indexOf(id);
+    cartItemsIds.splice(indexInCart, 1);
+  }
+  cartItemQuantity.textContent = newItemQuantity;
+  headerCartCount.textContent = `${cartItemsIds.length}`;
+  itemsCounter.textContent = `${cartItemsIds.length}`;
+  localStorage.setItem(`cart-item-id${id}`, `${newItemQuantity}`);
+  app.saveSettings();
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {
@@ -51,8 +62,9 @@ function createCartElement(id: number, color: string, brand: string, model: stri
       itemsCounter.textContent = `${cartItemsIds.length}`;
     });
     const cartItemBtnAdd = cartItem.querySelector('.cart-item__btn_add') as HTMLButtonElement;
-    cartItemBtnAdd.addEventListener('click', () => addMore(id));
+    cartItemBtnAdd.addEventListener('click', () => changeItemQuantity(id, 'add'));
     const cartItemBtnRemove = cartItem.querySelector('.cart-item__btn_remove') as HTMLButtonElement;
+    cartItemBtnRemove.addEventListener('click', () => changeItemQuantity(id, 'remove'));
     const cartItemElement = cartItem.querySelector('.cart__item') as HTMLDivElement;
     cartItemElement.id = `cart-item-${id}`;
     addToCart(cartItem);
@@ -66,4 +78,4 @@ cartIcon.addEventListener('click', openCart);
 const cartBtnClose = document.querySelector('.cart__btn_close') as HTMLButtonElement;
 cartBtnClose.addEventListener('click', closeCart);
 
-export { cartItemsIds, createCartElement, addMore };
+export { cartItemsIds, createCartElement, changeItemQuantity };
