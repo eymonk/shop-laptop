@@ -1,6 +1,6 @@
-import app from '../app';
-import { LaptopData, itemKeys } from '../goods/goodsItem';
+import { itemKeys, LaptopData } from '../../assets/goods';
 import { doubleRangeValues } from './DoubleRange';
+import app from '../app';
 
 enum rangeValues {
   min,

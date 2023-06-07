@@ -1,3 +1,4 @@
+type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 interface LaptopData {
   id: number;
   brand: string;
@@ -152,4 +153,4 @@ function getItemById(id: number) {
 }
 
 export default data;
-export { LaptopData, getItemById };
+export { LaptopData, itemKeys, getItemById };

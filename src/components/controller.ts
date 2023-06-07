@@ -1,11 +1,11 @@
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
-import { Card } from './goods/goodsItem';
 import SoleCheckbox from './search/SoleCheckbox';
 import { showMessage } from './message/message';
 import Checkbox from './search/Checkbox';
 import filters from './search/filters';
 import Search from './search/Search';
 import Select from './search/Select';
+import Card from './goods/goodsItem';
 import data from '../assets/goods';
 import app from './app';
 

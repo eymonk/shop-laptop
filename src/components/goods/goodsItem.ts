@@ -1,20 +1,7 @@
 import app from '../app';
-import { addToCart, cartItemsIds } from '../cart/cart';
-import { LaptopData } from '../../assets/goods';
+import { addToCart, findQuantity } from '../cart/cart';
+import { itemKeys, LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
-
-type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
-
-function removeFromCart(id: number) {
-  const indexInCart = cartItemsIds.indexOf(id);
-  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
-  cartItemsIds.splice(indexInCart, 1);
-  if (card) {
-    const cartIcon = card.querySelector('.goods__icon_in-cart') as HTMLDivElement;
-    cartIcon.classList.add('hidden');
-  }
-  if (app.elements.mainMessage) app.elements.mainMessage.remove();
-}
 
 function turnOnCartIcon(id: number) {
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
@@ -28,6 +15,7 @@ class Card {
   constructor(itemData: LaptopData) {
     this.#itemData = itemData;
     const [clone, itemElements] = this.#createClone();
+    const id = this.#itemData.id;
 
     //assign common props from incoming data-object to current card;
     Object.keys(itemElements).forEach((key) => {
@@ -39,16 +27,17 @@ class Card {
     const card = (clone as HTMLElement).querySelector('.goods__card') as HTMLDivElement;
     const img = card.querySelector('.goods__card-img') as HTMLImageElement;
 
-    card.id = `good-card-${this.#itemData.id}`;
-    img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${this.#itemData.id}.jpg?raw=true`;
+    card.id = `good-card-${id}`;
+    img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${id}.jpg?raw=true`;
     goodsSection?.appendChild(card);
     this.element = card;
     app.language === 'ru' && translateCard(card);
     const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
     btnAddToCart.addEventListener('click', () => {
-      turnOnCartIcon(this.#itemData.id);
+      turnOnCartIcon(id);
       addToCart(this.#itemData);
     });
+    if (findQuantity(id)) turnOnCartIcon(id);
   }
 
   #createClone() {
@@ -70,4 +59,5 @@ class Card {
   }
 }
 
-export { LaptopData, Card, itemKeys, removeFromCart };
+export default Card;
+export { turnOnCartIcon };

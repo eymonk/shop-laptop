@@ -59,7 +59,6 @@ const app: App = {
   },
 
   loadSettings() {
-    setupCart();
     //search
     const mainSearchValue = localStorage.getItem('search-main');
     if (mainSearchValue) {
@@ -128,8 +127,8 @@ const app: App = {
       else currentBox.element.classList.remove('checkboxes__box_active');
       currentBox.status = statusValue;
     });
-    //language
     translate(localStorage.getItem('language') as Language);
+    setupCart();
   },
 };
 

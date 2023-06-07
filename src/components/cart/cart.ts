@@ -1,6 +1,7 @@
 import { getItemById, LaptopData } from '../../assets/goods';
+import { turnOnCartIcon } from '../goods/goodsItem';
 import { translateCartItem } from '../translator';
-import app from '../app';
+import app, { saveSettings } from '../app';
 
 const cartElement = document.querySelector('.cart') as HTMLDivElement;
 const cartItemsIds: number[] = [];
@@ -12,6 +13,12 @@ function setCartCounters() {
   itemsCounterHeader.textContent = `${cartItemsIds.length}`;
 }
 
+function findQuantity(id: number) {
+  let number = 0;
+  cartItemsIds.forEach((currentId) => currentId === id && number++);
+  return number;
+}
+
 function setupCart() {
   const idsString = localStorage.getItem('cartItemsIds');
   if (idsString) idsString.split(',').forEach((number) => cartItemsIds.push(Number(number)));
@@ -20,12 +27,10 @@ function setupCart() {
     const itemData = getItemById(itemId) as LaptopData;
     createCartElement(itemData.id, itemData.color, itemData.brand, itemData.model, itemData.year);
   });
-  cartItemsIds.forEach((id) => {
-    if (idsInCart.has(id)) {
-      const itemCartElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
-      const itemQuantityElement = itemCartElement.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
-      itemQuantityElement.textContent = `${Number(itemQuantityElement.textContent) + 1}`;
-    }
+  idsInCart.forEach((id) => {
+    const itemCartElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
+    const itemQuantityElement = itemCartElement.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
+    itemQuantityElement.textContent = `${findQuantity(id)}`;
   });
   setCartCounters();
 }
@@ -36,6 +41,7 @@ function addToCart(item: LaptopData) {
     cartItemsIds.push(item.id);
     createCartElement(item.id, item.color, item.brand, item.model, item.year);
   }
+  saveSettings();
 }
 
 function openCart() {
@@ -74,6 +80,7 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
   }
   cartItemQuantity.textContent = newItemQuantity;
   setCartCounters();
+  saveSettings();
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {
@@ -108,4 +115,4 @@ cartIcon.addEventListener('click', openCart);
 const cartBtnClose = document.querySelector('.cart__btn_close') as HTMLButtonElement;
 cartBtnClose.addEventListener('click', closeCart);
 
-export { setupCart, addToCart, cartItemsIds, createCartElement, changeItemQuantity };
+export { addToCart, setupCart, findQuantity, cartItemsIds };
