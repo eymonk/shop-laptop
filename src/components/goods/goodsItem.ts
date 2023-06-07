@@ -1,5 +1,5 @@
 import app from '../app';
-import { cartItemsIds, createCartElement } from '../cart/cart';
+import { addMore, cartItemsIds, createCartElement} from '../cart/cart';
 import { translateCard } from '../translator';
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
@@ -78,8 +78,8 @@ class Card {
   }
 
   addToCart() {
-    const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
     if (!cartItemsIds.includes(this.#itemData.id)) {
+      const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
       const cartIcon = this.element.querySelector('.goods__icon_in-cart') as HTMLDivElement;
       cartIcon.style.display = 'block';
       createCartElement(
@@ -92,10 +92,7 @@ class Card {
       cartItemsIds.push(this.#itemData.id);
       cartCountElement.textContent = `${cartItemsIds.length}`;
       app.saveSettings();
-    } else {
-      cartItemsIds.push(this.#itemData.id);
-      cartCountElement.textContent = `${cartItemsIds.length}`;
-    }
+    } else addMore(this.#itemData.id);
   }
 }
 
