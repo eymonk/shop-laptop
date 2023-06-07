@@ -78,9 +78,9 @@ class Card {
   }
 
   addToCart() {
-    if (!cartItemsIds.includes(this.#itemData.id)){
+    const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
+    if (!cartItemsIds.includes(this.#itemData.id)) {
       const cartIcon = this.element.querySelector('.goods__icon_in-cart') as HTMLDivElement;
-      const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
       cartIcon.style.display = 'block';
       createCartElement(
         this.#itemData.id,
@@ -92,6 +92,9 @@ class Card {
       cartItemsIds.push(this.#itemData.id);
       cartCountElement.textContent = `${cartItemsIds.length}`;
       app.saveSettings();
+    } else {
+      cartItemsIds.push(this.#itemData.id);
+      cartCountElement.textContent = `${cartItemsIds.length}`;
     }
   }
 }

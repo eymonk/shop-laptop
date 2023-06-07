@@ -61,6 +61,13 @@
     border: 5px solid colors.$gray;
     cursor: pointer;
 
+    &__quantity-wrapper {
+      margin-top: box.$gap-small-extra;
+      display: flex;
+      align-items: center;
+      gap: box.$gap-small;
+    }
+
     &__btn-icon {
       width: 30px;
     }
@@ -78,6 +85,12 @@
         position: absolute;
         right: 0;
         top: 0;
+      }
+
+      &_add,
+      &_remove {
+        background-color: colors.$accent-transparent;
+        padding: 0 box.$gap-small;
       }
     }
 
