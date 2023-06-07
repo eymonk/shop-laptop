@@ -3,10 +3,11 @@ import { addToCart, findQuantity } from '../cart/cart';
 import { itemKeys, LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
 
-function turnOnCartIcon(id: number) {
+function turnCartIcon(id: number, action: 'on' | 'off') {
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
   const icon = card.querySelector('.goods__icon_in-cart') as HTMLImageElement;
-  icon.classList.remove('hidden');
+  if (action === 'on') icon.classList.remove('hidden');
+  else icon.classList.add('hidden');
 }
 
 class Card {
@@ -34,10 +35,10 @@ class Card {
     app.language === 'ru' && translateCard(card);
     const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
     btnAddToCart.addEventListener('click', () => {
-      turnOnCartIcon(id);
+      turnCartIcon(id, 'on');
       addToCart(this.#itemData);
     });
-    if (findQuantity(id)) turnOnCartIcon(id);
+    if (findQuantity(id)) turnCartIcon(id, 'on');
   }
 
   #createClone() {
@@ -60,4 +61,4 @@ class Card {
 }
 
 export default Card;
-export { turnOnCartIcon };
+export { turnCartIcon };

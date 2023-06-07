@@ -1,5 +1,5 @@
 import { getItemById, LaptopData } from '../../assets/goods';
-import { turnOnCartIcon } from '../goods/goodsItem';
+import { turnCartIcon } from '../goods/goodsItem';
 import { translateCartItem } from '../translator';
 import app, { saveSettings } from '../app';
 
@@ -62,8 +62,15 @@ function appendItemElement(element: DocumentFragment) {
 function removeFromCart(id: number) {
   const cartItemElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
   cartItemElement.remove();
-  removeFromCart(id);
+  for (let i = 0; i < cartItemsIds.length; i++) {
+    if (cartItemsIds[i] === id) {
+      cartItemsIds.splice(i, 1);
+      i--;
+    }
+  }
+  turnCartIcon(id, 'off');
   setCartCounters();
+  saveSettings();
 }
 
 function changeItemQuantity(id: number, action: 'add' | 'remove') {
