@@ -38,7 +38,7 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
   cartItemQuantity.textContent = newItemQuantity;
   headerCartCount.textContent = `${cartItemsIds.length}`;
   itemsCounter.textContent = `${cartItemsIds.length}`;
-  localStorage.setItem(`cart-item-id${id}`, `${newItemQuantity}`);
+  localStorage.setItem(`cart-item-${id}`, `${newItemQuantity}`);
   app.saveSettings();
 }
 

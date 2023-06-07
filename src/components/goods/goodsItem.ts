@@ -26,7 +26,7 @@ function removeFromCart(id: number) {
     cartIcon.style.display = 'none';
   }
   cartCountElement.textContent = `${cartItemsIds.length}`;
-  localStorage.removeItem(`cart-item-id${id}`);
+  localStorage.removeItem(`cart-item-${id}`);
   if (app.elements.mainMessage) app.elements.mainMessage.remove();
   app.saveSettings();
 }
@@ -91,6 +91,8 @@ class Card {
       );
       cartItemsIds.push(this.#itemData.id);
       cartCountElement.textContent = `${cartItemsIds.length}`;
+      localStorage.setItem(`cart-item-${this.#itemData.id}`, '1');
+      console.log(this.#itemData.id);
       app.saveSettings();
     } else changeItemQuantity(this.#itemData.id, 'add');
   }

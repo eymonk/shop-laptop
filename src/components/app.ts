@@ -2,7 +2,6 @@ import { DoubleRange } from './search/DoubleRange';
 import translate, { Language } from './translator';
 import SoleCheckbox from './search/SoleCheckbox';
 import { Message } from './message/message';
-import { cartItemsIds } from './cart/cart';
 import Checkbox from './search/Checkbox';
 import Search from './search/Search';
 import Select from './search/Select';
@@ -65,9 +64,6 @@ const app: App = {
     this.saveRangeSettings();
     this.saveFilterSettings();
     this.saveSoleCheckboxes();
-    cartItemsIds.forEach((id) => {
-      localStorage.setItem(`cart-item-id${id}`, `${id}`);
-    });
   },
 
   loadSettings() {
