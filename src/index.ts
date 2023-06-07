@@ -25,5 +25,4 @@ controller.createFilter('size');
 
 controller.createSoleCheckbox('gaming');
 controller.createSoleCheckbox('popular');
-
 app.loadSettings();

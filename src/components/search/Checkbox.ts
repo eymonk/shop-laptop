@@ -1,4 +1,4 @@
-import app from '../app';
+import app, { saveSettings } from '../app';
 import controller from '../controller';
 
 class Checkbox {
@@ -18,7 +18,7 @@ class Checkbox {
     this.wrapper.addEventListener('click', () => {
       this.element.classList.toggle('checkboxes__box_active');
       this.status = this.setStatus();
-      app.saveSettings();
+      saveSettings();
       controller.draw();
     });
 

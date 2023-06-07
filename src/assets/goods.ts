@@ -1,4 +1,16 @@
-const data = [
+interface LaptopData {
+  id: number;
+  brand: string;
+  model: string;
+  stock: number;
+  year: number;
+  color: string;
+  size: string;
+  gaming: string;
+  popular: string;
+}
+
+const data: LaptopData[] = [
   {
     id: 1,
     brand: 'Lenovo',
@@ -133,4 +145,11 @@ const data = [
   },
 ];
 
+function getItemById(id: number) {
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].id === id) return data[i];
+  }
+}
+
 export default data;
+export { LaptopData, getItemById };

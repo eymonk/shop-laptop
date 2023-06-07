@@ -1,4 +1,4 @@
-import app from '../app';
+import app, { saveSettings } from '../app';
 import controller from '../controller';
 
 class SoleCheckbox {
@@ -20,7 +20,7 @@ class SoleCheckbox {
     this.element.parentElement?.addEventListener('click', () => {
       this.element.classList.toggle('checkboxes__box_active');
       SoleCheckbox.setStatus(this);
-      app.saveSettings();
+      saveSettings();
       controller.draw();
     });
   }

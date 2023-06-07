@@ -1,4 +1,4 @@
-import app from '../app';
+import app, { saveSettings } from '../app';
 import controller from '../controller';
 
 class Search {
@@ -14,7 +14,7 @@ class Search {
       this.value = (event.target as HTMLInputElement).value;
       if (this.value.length) icon.src = 'svg/close.svg';
       else icon.src = 'svg/search.svg';
-      app.saveSettings();
+      saveSettings();
       controller.draw();
     });
 
@@ -24,7 +24,7 @@ class Search {
         this.element.value = '';
         this.element.focus();
         icon.src = 'svg/search.svg';
-        app.saveSettings();
+        saveSettings();
         controller.draw();
       }
     });

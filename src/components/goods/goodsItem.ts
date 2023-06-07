@@ -1,34 +1,19 @@
-import app from '../app';
-import { cartItemsIds, changeItemQuantity, createCartElement} from '../cart/cart';
+import app, { saveSettings } from '../app';
+import { cartItemsIds, changeItemQuantity, createCartElement } from '../cart/cart';
+import { LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
 
 type itemKeys = 'brand' | 'model' | 'year' | 'stock' | 'color' | 'size' | 'gaming' | 'popular';
 
-interface LaptopData {
-  id: number;
-  brand: string;
-  model: string;
-  stock: number;
-  year: number;
-  color: string;
-  size: string;
-  gaming: string;
-  popular: string;
-}
-
 function removeFromCart(id: number) {
-  const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
   const indexInCart = cartItemsIds.indexOf(id);
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
   cartItemsIds.splice(indexInCart, 1);
   if (card) {
     const cartIcon = card.querySelector('.goods__icon_in-cart') as HTMLDivElement;
-    cartIcon.style.display = 'none';
+    cartIcon.classList.add('hidden');
   }
-  cartCountElement.textContent = `${cartItemsIds.length}`;
-  localStorage.removeItem(`cart-item-${id}`);
   if (app.elements.mainMessage) app.elements.mainMessage.remove();
-  app.saveSettings();
 }
 
 class Card {
@@ -48,7 +33,7 @@ class Card {
 
     const goodsSection = document.querySelector('.goods');
     const card = (clone as HTMLElement).querySelector('.goods__card') as HTMLDivElement;
-    const img = (clone as HTMLElement).querySelector('.goods__card-img') as HTMLImageElement;
+    const img = card.querySelector('.goods__card-img') as HTMLImageElement;
 
     card.id = `good-card-${this.#itemData.id}`;
     img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${this.#itemData.id}.jpg?raw=true`;
@@ -57,6 +42,10 @@ class Card {
     app.language === 'ru' && translateCard(card);
     const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
     btnAddToCart.addEventListener('click', () => this.addToCart());
+    if (cartItemsIds.includes(this.#itemData.id)) {
+      const cartIcon = card.querySelector('.goods__icon_in-cart') as HTMLImageElement;
+      cartIcon.classList.remove('hidden');
+    }
   }
 
   #createClone() {
@@ -79,7 +68,6 @@ class Card {
 
   addToCart() {
     if (!cartItemsIds.includes(this.#itemData.id)) {
-      const cartCountElement = document.querySelector('.header__cart-count') as HTMLParagraphElement;
       const cartIcon = this.element.querySelector('.goods__icon_in-cart') as HTMLDivElement;
       cartIcon.style.display = 'block';
       createCartElement(
@@ -90,11 +78,8 @@ class Card {
         this.#itemData.year
       );
       cartItemsIds.push(this.#itemData.id);
-      cartCountElement.textContent = `${cartItemsIds.length}`;
-      localStorage.setItem(`cart-item-${this.#itemData.id}`, '1');
-      console.log(this.#itemData.id);
-      app.saveSettings();
     } else changeItemQuantity(this.#itemData.id, 'add');
+    saveSettings();
   }
 }
 

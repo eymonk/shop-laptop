@@ -1,5 +1,5 @@
 import * as noUiSlider from 'nouislider';
-import app from '../app';
+import { saveSettings } from '../app';
 import controller from '../controller';
 
 type doubleRangeValues = [number, number];
@@ -36,7 +36,7 @@ class DoubleRange {
 
       setTimeout(() => {
         controller.draw();
-        app.saveSettings();
+        saveSettings();
       }, 0);
     });
   }

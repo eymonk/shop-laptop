@@ -1,3 +1,4 @@
+import { cartItemsIds, setupCart } from './cart/cart';
 import { DoubleRange } from './search/DoubleRange';
 import translate, { Language } from './translator';
 import SoleCheckbox from './search/SoleCheckbox';
@@ -19,7 +20,6 @@ interface App {
   saveRangeSettings: () => void;
   saveFilterSettings: () => void;
   saveSoleCheckboxes: () => void;
-  saveSettings: () => void;
   loadSettings: () => void;
 }
 
@@ -58,15 +58,8 @@ const app: App = {
     });
   },
 
-  saveSettings() {
-    localStorage.setItem(`search-main`, this.searches.main.value);
-    localStorage.setItem(`sort`, this.selects.sort.value);
-    this.saveRangeSettings();
-    this.saveFilterSettings();
-    this.saveSoleCheckboxes();
-  },
-
   loadSettings() {
+    setupCart();
     //search
     const mainSearchValue = localStorage.getItem('search-main');
     if (mainSearchValue) {
@@ -140,4 +133,14 @@ const app: App = {
   },
 };
 
+function saveSettings() {
+  localStorage.setItem(`search-main`, app.searches.main.value);
+  localStorage.setItem(`sort`, app.selects.sort.value);
+  app.saveRangeSettings();
+  app.saveFilterSettings();
+  app.saveSoleCheckboxes();
+  localStorage.setItem(`cartItemsIds`, `${cartItemsIds.slice()}`);
+}
+
 export default app;
+export { saveSettings };

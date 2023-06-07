@@ -1,4 +1,4 @@
-import app from '../app';
+import app, { saveSettings } from '../app';
 import controller from '../controller';
 
 class Select {
@@ -14,7 +14,7 @@ class Select {
     app.selects[name] = this;
     this.element.addEventListener('change', (event) => {
       this.value = (event.target as HTMLSelectElement).value;
-      app.saveSettings();
+      saveSettings();
       setTimeout(controller.draw);
     });
   }
