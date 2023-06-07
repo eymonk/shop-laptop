@@ -6,7 +6,6 @@ const cartElement = document.querySelector('.cart') as HTMLDivElement;
 const cartItemsIds: number[] = [];
 
 function setCartCounters() {
-  console.log('set cart counters');
   const itemsCounterCart = document.querySelector('.cart__counter-number') as HTMLSpanElement;
   const itemsCounterHeader = document.querySelector('.header__cart-count') as HTMLParagraphElement;
   itemsCounterCart.textContent = `${cartItemsIds.length}`;
@@ -23,13 +22,20 @@ function setupCart() {
   });
   cartItemsIds.forEach((id) => {
     if (idsInCart.has(id)) {
-      console.log('has');
       const itemCartElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
       const itemQuantityElement = itemCartElement.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
       itemQuantityElement.textContent = `${Number(itemQuantityElement.textContent) + 1}`;
     }
   });
   setCartCounters();
+}
+
+function addToCart(item: LaptopData) {
+  if (cartItemsIds.includes(item.id)) changeItemQuantity(item.id, 'add');
+  else {
+    cartItemsIds.push(item.id);
+    createCartElement(item.id, item.color, item.brand, item.model, item.year);
+  }
 }
 
 function openCart() {
@@ -42,7 +48,7 @@ function closeCart() {
   document.body.classList.remove('stop-scrolling');
 }
 
-function addToCart(element: DocumentFragment) {
+function appendItemElement(element: DocumentFragment) {
   const cartItemsContainer = document.querySelector('.cart__items') as HTMLDivElement;
   cartItemsContainer.append(element);
 }
@@ -71,7 +77,6 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {
-  cartItemsIds.push(id);
   const cardItemTemplate = document.querySelector('.template__cart-item') as HTMLTemplateElement;
   const cartItem = document.importNode(cardItemTemplate.content, true);
   const cartItemImg = cartItem.querySelector('.cart-item__img') as HTMLImageElement;
@@ -92,7 +97,7 @@ function createCartElement(id: number, color: string, brand: string, model: stri
   cartItemBtnRemove.addEventListener('click', () => changeItemQuantity(id, 'remove'));
   const cartItemElement = cartItem.querySelector('.cart__item') as HTMLDivElement;
   cartItemElement.id = `cart-item-${id}`;
-  addToCart(cartItem);
+  appendItemElement(cartItem);
   app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
   setCartCounters();
 }
@@ -103,4 +108,4 @@ cartIcon.addEventListener('click', openCart);
 const cartBtnClose = document.querySelector('.cart__btn_close') as HTMLButtonElement;
 cartBtnClose.addEventListener('click', closeCart);
 
-export { setupCart, cartItemsIds, createCartElement, changeItemQuantity };
+export { setupCart, addToCart, cartItemsIds, createCartElement, changeItemQuantity };

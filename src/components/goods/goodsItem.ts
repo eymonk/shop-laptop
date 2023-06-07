@@ -1,5 +1,5 @@
-import app, { saveSettings } from '../app';
-import { cartItemsIds, changeItemQuantity, createCartElement } from '../cart/cart';
+import app from '../app';
+import { addToCart, cartItemsIds } from '../cart/cart';
 import { LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
 
@@ -16,14 +16,18 @@ function removeFromCart(id: number) {
   if (app.elements.mainMessage) app.elements.mainMessage.remove();
 }
 
+function turnOnCartIcon(id: number) {
+  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
+  const icon = card.querySelector('.goods__icon_in-cart') as HTMLImageElement;
+  icon.classList.remove('hidden');
+}
+
 class Card {
   readonly #itemData: LaptopData;
   element: HTMLDivElement;
   constructor(itemData: LaptopData) {
     this.#itemData = itemData;
-
     const [clone, itemElements] = this.#createClone();
-    itemData = this.#itemData;
 
     //assign common props from incoming data-object to current card;
     Object.keys(itemElements).forEach((key) => {
@@ -41,11 +45,10 @@ class Card {
     this.element = card;
     app.language === 'ru' && translateCard(card);
     const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
-    btnAddToCart.addEventListener('click', () => this.addToCart());
-    if (cartItemsIds.includes(this.#itemData.id)) {
-      const cartIcon = card.querySelector('.goods__icon_in-cart') as HTMLImageElement;
-      cartIcon.classList.remove('hidden');
-    }
+    btnAddToCart.addEventListener('click', () => {
+      turnOnCartIcon(this.#itemData.id);
+      addToCart(this.#itemData);
+    });
   }
 
   #createClone() {
@@ -64,21 +67,6 @@ class Card {
         popular: clone.querySelector('.goods__feature_popular') as HTMLSpanElement,
       },
     ];
-  }
-
-  addToCart() {
-    if (!cartItemsIds.includes(this.#itemData.id)) {
-      const cartIcon = this.element.querySelector('.goods__icon_in-cart') as HTMLDivElement;
-      cartIcon.style.display = 'block';
-      createCartElement(
-        this.#itemData.id,
-        this.#itemData.color,
-        this.#itemData.brand,
-        this.#itemData.model,
-        this.#itemData.year
-      );
-    } else changeItemQuantity(this.#itemData.id, 'add');
-    saveSettings();
   }
 }
 
