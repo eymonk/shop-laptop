@@ -152,5 +152,10 @@ function getItemById(id: number) {
   }
 }
 
+function getStockQuantity(id: number) {
+  const itemData = getItemById(id);
+  if (itemData) return itemData.stock;
+}
+
 export default data;
-export { LaptopData, itemKeys, getItemById };
+export { LaptopData, itemKeys, getItemById, getStockQuantity };

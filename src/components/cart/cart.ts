@@ -1,4 +1,4 @@
-import { getItemById, LaptopData } from '../../assets/goods';
+import { getItemById, getStockQuantity, LaptopData } from "../../assets/goods";
 import { turnCartIcon } from '../goods/goodsItem';
 import { translateCartItem } from '../translator';
 import app, { saveSettings } from '../app';
@@ -78,8 +78,10 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
   const cartItemQuantity = cartItem.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
   let newItemQuantity = cartItemQuantity.textContent;
   if (action === 'add') {
-    newItemQuantity = `${Number(cartItemQuantity.textContent) + 1}`;
-    cartItemsIds.push(id);
+    if (Number(getStockQuantity(id)) > findQuantity(id)) {
+      newItemQuantity = `${Number(cartItemQuantity.textContent) + 1}`;
+      cartItemsIds.push(id);
+    } else alert('No more items in stock ...');
   } else if (Number(cartItemQuantity.textContent) > 1) {
     newItemQuantity = `${Number(cartItemQuantity.textContent) - 1}`;
     const indexInCart = cartItemsIds.indexOf(id);
