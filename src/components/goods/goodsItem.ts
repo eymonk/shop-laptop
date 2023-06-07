@@ -77,7 +77,6 @@ class Card {
         this.#itemData.model,
         this.#itemData.year
       );
-      cartItemsIds.push(this.#itemData.id);
     } else changeItemQuantity(this.#itemData.id, 'add');
     saveSettings();
   }

@@ -6,6 +6,7 @@ const cartElement = document.querySelector('.cart') as HTMLDivElement;
 const cartItemsIds: number[] = [];
 
 function setCartCounters() {
+  console.log('set cart counters');
   const itemsCounterCart = document.querySelector('.cart__counter-number') as HTMLSpanElement;
   const itemsCounterHeader = document.querySelector('.header__cart-count') as HTMLParagraphElement;
   itemsCounterCart.textContent = `${cartItemsIds.length}`;
@@ -15,9 +16,18 @@ function setCartCounters() {
 function setupCart() {
   const idsString = localStorage.getItem('cartItemsIds');
   if (idsString) idsString.split(',').forEach((number) => cartItemsIds.push(Number(number)));
-  cartItemsIds.forEach((itemId) => {
+  const idsInCart = new Set(cartItemsIds);
+  idsInCart.forEach((itemId) => {
     const itemData = getItemById(itemId) as LaptopData;
     createCartElement(itemData.id, itemData.color, itemData.brand, itemData.model, itemData.year);
+  });
+  cartItemsIds.forEach((id) => {
+    if (idsInCart.has(id)) {
+      console.log('has');
+      const itemCartElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
+      const itemQuantityElement = itemCartElement.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
+      itemQuantityElement.textContent = `${Number(itemQuantityElement.textContent) + 1}`;
+    }
   });
   setCartCounters();
 }
@@ -35,7 +45,6 @@ function closeCart() {
 function addToCart(element: DocumentFragment) {
   const cartItemsContainer = document.querySelector('.cart__items') as HTMLDivElement;
   cartItemsContainer.append(element);
-  setCartCounters();
 }
 
 function removeFromCart(id: number) {
@@ -62,6 +71,7 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {
+  cartItemsIds.push(id);
   const cardItemTemplate = document.querySelector('.template__cart-item') as HTMLTemplateElement;
   const cartItem = document.importNode(cardItemTemplate.content, true);
   const cartItemImg = cartItem.querySelector('.cart-item__img') as HTMLImageElement;
@@ -84,6 +94,7 @@ function createCartElement(id: number, color: string, brand: string, model: stri
   cartItemElement.id = `cart-item-${id}`;
   addToCart(cartItem);
   app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
+  setCartCounters();
 }
 
 const cartIcon = document.querySelector('.header__link_cart') as HTMLAnchorElement;
