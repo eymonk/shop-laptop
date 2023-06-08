@@ -1,19 +1,20 @@
 import app from '../app';
-import { addToCart, findQuantity } from '../cart/cart';
+import { addToCart, findQuantityInCart } from '../cart/cart';
 import { itemKeys, LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
+
+function setCardCartCounter(id: number) {
+  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
+  const cartCounter = card.querySelector('.goods__cart-counter') as HTMLParagraphElement;
+  cartCounter.textContent = `${findQuantityInCart(id)}`;
+}
 
 function turnCartIcon(id: number, action: 'on' | 'off') {
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
   const iconWrapper = card.querySelector('.goods__cart-icon-wrapper') as HTMLImageElement;
   if (action === 'on') iconWrapper.classList.remove('hidden');
   else iconWrapper.classList.add('hidden');
-}
-
-function setCardCartCounter(id: number, quantitiy: number) {
-  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
-  const cartCounter = card.querySelector('.goods__cart-counter') as HTMLParagraphElement;
-  cartCounter.textContent = `${quantitiy}`;
+  setCardCartCounter(id);
 }
 
 class Card {
@@ -41,14 +42,11 @@ class Card {
     app.language === 'ru' && translateCard(card);
     const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
     btnAddToCart.addEventListener('click', () => {
-      turnCartIcon(id, 'on');
       addToCart(this.#itemData);
-    });
-    const quantityInCart = findQuantity(id);
-    if (quantityInCart) {
       turnCartIcon(id, 'on');
-      setCardCartCounter(id, quantityInCart);
-    };
+    });
+    const quantityInCart = findQuantityInCart(id);
+    if (quantityInCart) turnCartIcon(id, 'on');
   }
 
   #createClone() {

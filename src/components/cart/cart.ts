@@ -13,7 +13,7 @@ function setCartCounters() {
   itemsCounterHeader.textContent = `${cartItemsIds.length}`;
 }
 
-function findQuantity(id: number) {
+function findQuantityInCart(id: number) {
   let number = 0;
   cartItemsIds.forEach((currentId) => currentId === id && number++);
   return number;
@@ -30,7 +30,7 @@ function setupCart() {
   idsInCart.forEach((id) => {
     const itemCartElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
     const itemQuantityElement = itemCartElement.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
-    const quantity = findQuantity(id);
+    const quantity = findQuantityInCart(id);
     itemQuantityElement.textContent = `${quantity}`;
   });
   setCartCounters();
@@ -46,6 +46,7 @@ function addToCart(item: LaptopData) {
 }
 
 function openCart() {
+  scrollTo(0, 0);
   cartElement.classList.remove('hidden');
   document.body.classList.add('stop-scrolling');
 }
@@ -79,16 +80,19 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
   const cartItemQuantity = cartItem.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
   let newItemQuantity = Number(cartItemQuantity.textContent);
   if (action === 'add') {
-    if (Number(getStockQuantity(id)) > findQuantity(id)) {
+    if (Number(getStockQuantity(id)) > findQuantityInCart(id)) {
       newItemQuantity = Number(cartItemQuantity.textContent) + 1;
       cartItemsIds.push(id);
-    } else alert('No more items in stock ...');
+    } else {
+      const message = app.language === 'en' ? 'No more in stock.' : 'Больше нет на складе.';
+      alert(message);
+    }
   } else if (Number(cartItemQuantity.textContent) > 1) {
     newItemQuantity = Number(cartItemQuantity.textContent) - 1;
     const indexInCart = cartItemsIds.indexOf(id);
     cartItemsIds.splice(indexInCart, 1);
   }
-  setCardCartCounter(id, newItemQuantity);
+  setCardCartCounter(id);
   cartItemQuantity.textContent = `${newItemQuantity}`;
   setCartCounters();
   saveSettings();
@@ -126,4 +130,4 @@ cartIcon.addEventListener('click', openCart);
 const cartBtnClose = document.querySelector('.cart__btn_close') as HTMLButtonElement;
 cartBtnClose.addEventListener('click', closeCart);
 
-export { addToCart, setupCart, findQuantity, cartItemsIds };
+export { addToCart, setupCart, findQuantityInCart, cartItemsIds };
