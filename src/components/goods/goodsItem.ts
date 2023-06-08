@@ -10,10 +10,12 @@ function setCardCartCounter(id: number) {
 
 function turnCartIcon(id: number, action: 'on' | 'off') {
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
-  const iconWrapper = card.querySelector('.goods__cart-icon-wrapper') as HTMLImageElement;
-  if (action === 'on') iconWrapper.classList.remove('hidden');
-  else iconWrapper.classList.add('hidden');
-  setCardCartCounter(id);
+  if (card) {
+    const iconWrapper = card.querySelector('.goods__cart-icon-wrapper') as HTMLImageElement;
+    if (action === 'on') iconWrapper.classList.remove('hidden');
+    else iconWrapper.classList.add('hidden');
+    setCardCartCounter(id);
+  }
 }
 
 function createClone() {
