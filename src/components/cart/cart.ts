@@ -23,10 +23,12 @@ function setupCart() {
   const idsString = localStorage.getItem('cartItemsIds');
   if (idsString) idsString.split(',').forEach((number) => cartItemsIds.push(Number(number)));
   const idsInCart = new Set(cartItemsIds);
+  //create cart items after reload
   idsInCart.forEach((itemId) => {
     const itemData = getItemById(itemId) as LaptopData;
     createCartElement(itemData.id, itemData.color, itemData.brand, itemData.model, itemData.year);
   });
+  //set right items quantities in cart
   idsInCart.forEach((id) => {
     const itemCartElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
     const itemQuantityElement = itemCartElement.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
@@ -79,23 +81,34 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
   const cartItem = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
   const cartItemQuantity = cartItem.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
   let newItemQuantity = Number(cartItemQuantity.textContent);
+
   if (action === 'add') {
     if (Number(getStockQuantity(id)) > findQuantityInCart(id)) {
       newItemQuantity = Number(cartItemQuantity.textContent) + 1;
       cartItemsIds.push(id);
-    } else {
-      const message = app.language === 'en' ? 'No more in stock.' : 'Больше нет на складе.';
-      alert(message);
-    }
+    } else alert(app.language === 'en' ? 'No more in stock.' : 'Больше нет на складе.');
   } else if (Number(cartItemQuantity.textContent) > 1) {
     newItemQuantity = Number(cartItemQuantity.textContent) - 1;
-    const indexInCart = cartItemsIds.indexOf(id);
-    cartItemsIds.splice(indexInCart, 1);
+    cartItemsIds.splice(cartItemsIds.indexOf(id), 1);
   }
+
   setCardCartCounter(id);
   cartItemQuantity.textContent = `${newItemQuantity}`;
   setCartCounters();
   saveSettings();
+}
+
+function setupCartElement(id: number, element: DocumentFragment) {
+  const cartItemBtnDelete = element.querySelector('.cart-item__btn_delete') as HTMLButtonElement;
+  cartItemBtnDelete.addEventListener('click', () => removeFromCart(id));
+  const cartItemBtnAdd = element.querySelector('.cart-item__btn_add') as HTMLButtonElement;
+  cartItemBtnAdd.addEventListener('click', () => changeItemQuantity(id, 'add'));
+  const cartItemBtnRemove = element.querySelector('.cart-item__btn_remove') as HTMLButtonElement;
+  cartItemBtnRemove.addEventListener('click', () => changeItemQuantity(id, 'remove'));
+  const cartItemElement = element.querySelector('.cart__item') as HTMLDivElement;
+  cartItemElement.id = `cart-item-${id}`;
+  appendItemElement(element);
+  app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {
@@ -106,21 +119,13 @@ function createCartElement(id: number, color: string, brand: string, model: stri
   const cartItemBrand = cartItem.querySelector('.cart-item__brand') as HTMLParagraphElement;
   const cartItemModel = cartItem.querySelector('.cart-item__model') as HTMLParagraphElement;
   const cartItemYear = cartItem.querySelector('.cart-item__year') as HTMLParagraphElement;
+
   cartItemImg.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${id}.jpg?raw=true`;
   cartItemColor.textContent = color;
   cartItemBrand.textContent = brand;
   cartItemModel.textContent = model;
   cartItemYear.textContent = `${year}`;
-  const cartItemBtnDelete = cartItem.querySelector('.cart-item__btn_delete') as HTMLButtonElement;
-  cartItemBtnDelete.addEventListener('click', () => removeFromCart(id));
-  const cartItemBtnAdd = cartItem.querySelector('.cart-item__btn_add') as HTMLButtonElement;
-  cartItemBtnAdd.addEventListener('click', () => changeItemQuantity(id, 'add'));
-  const cartItemBtnRemove = cartItem.querySelector('.cart-item__btn_remove') as HTMLButtonElement;
-  cartItemBtnRemove.addEventListener('click', () => changeItemQuantity(id, 'remove'));
-  const cartItemElement = cartItem.querySelector('.cart__item') as HTMLDivElement;
-  cartItemElement.id = `cart-item-${id}`;
-  appendItemElement(cartItem);
-  app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
+  setupCartElement(id, cartItem);
   setCartCounters();
 }
 
