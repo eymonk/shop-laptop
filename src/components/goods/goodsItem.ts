@@ -5,9 +5,9 @@ import { translateCard } from '../translator';
 
 function turnCartIcon(id: number, action: 'on' | 'off') {
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
-  const icon = card.querySelector('.goods__icon_in-cart') as HTMLImageElement;
-  if (action === 'on') icon.classList.remove('hidden');
-  else icon.classList.add('hidden');
+  const iconWrapper = card.querySelector('.goods__cart-icon-wrapper') as HTMLImageElement;
+  if (action === 'on') iconWrapper.classList.remove('hidden');
+  else iconWrapper.classList.add('hidden');
 }
 
 class Card {
