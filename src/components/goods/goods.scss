@@ -15,8 +15,8 @@
   font-size: 1.1rem;
 
   &__card {
-    position: relative;;
-    padding: box.$gap-large box.$gap-large-extra;
+    position: relative;
+    padding: box.$gap-large;
     width: calc(1rem * 15);
     display: flex;
     flex-direction: column;
@@ -35,17 +35,20 @@
 
   &__cart-icon-wrapper {
     position: absolute;
-    top: box.$gap-small;
-    right: box.$gap-small;
+    top: box.$gap-standard;
+    right: box.$gap-standard;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
   }
 
   &__cart-counter {
-    margin-right: box.$gap-standard;
-    font-weight: bold;
-    transform: translateY(5px);
+    margin-right: box.$gap-small;
+    padding: 0 box.$gap-small;
+    transform: translate(1px, 4px);
+    background-color: colors.$black;
+    color: colors.$accent;
+    border-radius: box.$border-radius-standard;
   }
 
   &__icon_in-cart {

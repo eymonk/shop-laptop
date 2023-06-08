@@ -10,6 +10,12 @@ function turnCartIcon(id: number, action: 'on' | 'off') {
   else iconWrapper.classList.add('hidden');
 }
 
+function setCardCartCounter(id: number, quantitiy: number) {
+  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
+  const cartCounter = card.querySelector('.goods__cart-counter') as HTMLParagraphElement;
+  cartCounter.textContent = `${quantitiy}`;
+}
+
 class Card {
   readonly #itemData: LaptopData;
   element: HTMLDivElement;
@@ -38,7 +44,11 @@ class Card {
       turnCartIcon(id, 'on');
       addToCart(this.#itemData);
     });
-    if (findQuantity(id)) turnCartIcon(id, 'on');
+    const quantityInCart = findQuantity(id);
+    if (quantityInCart) {
+      turnCartIcon(id, 'on');
+      setCardCartCounter(id, quantityInCart);
+    };
   }
 
   #createClone() {
@@ -61,4 +71,4 @@ class Card {
 }
 
 export default Card;
-export { turnCartIcon };
+export { turnCartIcon, setCardCartCounter };

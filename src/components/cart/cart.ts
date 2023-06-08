@@ -1,5 +1,5 @@
-import { getItemById, getStockQuantity, LaptopData } from "../../assets/goods";
-import { turnCartIcon } from '../goods/goodsItem';
+import { getItemById, getStockQuantity, LaptopData } from '../../assets/goods';
+import { setCardCartCounter, turnCartIcon } from '../goods/goodsItem';
 import { translateCartItem } from '../translator';
 import app, { saveSettings } from '../app';
 
@@ -30,7 +30,8 @@ function setupCart() {
   idsInCart.forEach((id) => {
     const itemCartElement = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
     const itemQuantityElement = itemCartElement.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
-    itemQuantityElement.textContent = `${findQuantity(id)}`;
+    const quantity = findQuantity(id);
+    itemQuantityElement.textContent = `${quantity}`;
   });
   setCartCounters();
 }
@@ -76,18 +77,19 @@ function removeFromCart(id: number) {
 function changeItemQuantity(id: number, action: 'add' | 'remove') {
   const cartItem = document.querySelector(`#cart-item-${id}`) as HTMLDivElement;
   const cartItemQuantity = cartItem.querySelector('.cart-item__quantity-number') as HTMLParagraphElement;
-  let newItemQuantity = cartItemQuantity.textContent;
+  let newItemQuantity = Number(cartItemQuantity.textContent);
   if (action === 'add') {
     if (Number(getStockQuantity(id)) > findQuantity(id)) {
-      newItemQuantity = `${Number(cartItemQuantity.textContent) + 1}`;
+      newItemQuantity = Number(cartItemQuantity.textContent) + 1;
       cartItemsIds.push(id);
     } else alert('No more items in stock ...');
   } else if (Number(cartItemQuantity.textContent) > 1) {
-    newItemQuantity = `${Number(cartItemQuantity.textContent) - 1}`;
+    newItemQuantity = Number(cartItemQuantity.textContent) - 1;
     const indexInCart = cartItemsIds.indexOf(id);
     cartItemsIds.splice(indexInCart, 1);
   }
-  cartItemQuantity.textContent = newItemQuantity;
+  setCardCartCounter(id, newItemQuantity);
+  cartItemQuantity.textContent = `${newItemQuantity}`;
   setCartCounters();
   saveSettings();
 }
