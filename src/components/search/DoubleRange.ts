@@ -1,5 +1,5 @@
 import * as noUiSlider from 'nouislider';
-import controller from '../controller';
+import { draw } from '../controller';
 import { saveSettings } from '../app';
 
 type doubleRangeValues = [number, number];
@@ -35,7 +35,7 @@ class DoubleRange {
       this.info[1].textContent = max.toString();
 
       setTimeout(() => {
-        controller.draw();
+        draw();
         saveSettings();
       }, 0);
     });

@@ -1,5 +1,5 @@
 import { searches, saveSettings } from '../app';
-import controller from '../controller';
+import { draw } from '../controller';
 
 class Search {
   element: HTMLInputElement;
@@ -15,7 +15,7 @@ class Search {
       if (this.value.length) icon.src = 'svg/close.svg';
       else icon.src = 'svg/search.svg';
       saveSettings();
-      controller.draw();
+      draw();
     });
 
     icon.addEventListener('click', () => {
@@ -25,7 +25,7 @@ class Search {
         this.element.focus();
         icon.src = 'svg/search.svg';
         saveSettings();
-        controller.draw();
+        draw();
       }
     });
 

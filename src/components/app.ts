@@ -2,7 +2,6 @@ import { cartItemsIds, setupCart } from './cart/cart';
 import { DoubleRange } from './search/DoubleRange';
 import translate, { Language } from './translator';
 import SoleCheckbox from './search/SoleCheckbox';
-import { Message } from './message/message';
 import Checkbox from './search/Checkbox';
 import Search from './search/Search';
 import Select from './search/Select';
@@ -123,16 +122,6 @@ function loadSettings() {
   setupCart();
 }
 
-interface App {
-  currentMessageType: Message;
-  language: 'ru' | 'en';
-}
-
-const app: App = {
-  language: 'en',
-  currentMessageType: null,
-};
-
 function saveSettings() {
   localStorage.setItem(`search-main`, searches.main.value);
   localStorage.setItem(`sort`, selects.sort.value);
@@ -142,5 +131,4 @@ function saveSettings() {
   localStorage.setItem(`cartItemsIds`, `${cartItemsIds.slice()}`);
 }
 
-export default app;
 export { filters, searches, soleCheckboxes, selects, ranges, saveSettings, loadSettings };

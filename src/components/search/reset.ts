@@ -1,5 +1,5 @@
-import controller from '../controller';
-import{ filters, ranges, searches, soleCheckboxes} from '../app';
+import { draw } from '../controller';
+import { filters, ranges, searches, soleCheckboxes} from '../app';
 
 // RESET FILTERS
 const resetSearch = function () {
@@ -45,7 +45,7 @@ const fullReset = function () {
   resetSoloCheckboxes();
   resetSearch();
 
-  controller.draw();
+  draw();
 };
 
 const resetBtn = document.querySelector('.search__controls_reset') as HTMLButtonElement;

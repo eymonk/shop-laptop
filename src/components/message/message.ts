@@ -1,4 +1,4 @@
-import app from '../app';
+import controller from '../controller';
 
 type Message = null | 'no-matches' | 'default';
 
@@ -8,7 +8,7 @@ function removeMessage() {
 }
 
 function createMessage(templateId: string, message: string, remove: boolean) {
-  if (app.currentMessageType) removeMessage();
+  if (controller.currentMessageType) removeMessage();
   const cardsWrapper = document.querySelector('.goods') as HTMLDivElement;
   const template = document.querySelector(`#${templateId}`) as HTMLTemplateElement;
   const clone = template.content.cloneNode(true) as HTMLDivElement;
@@ -16,7 +16,7 @@ function createMessage(templateId: string, message: string, remove: boolean) {
   const messageElement = clone.querySelector(`.message__text`) as HTMLParagraphElement;
   const messageTitle = clone.querySelector('.message__title') as HTMLParagraphElement;
 
-  if (app.language === 'en') messageTitle.textContent = 'system message';
+  if (controller.language === 'en') messageTitle.textContent = 'system message';
   else messageTitle.textContent = 'системное сообщение';
 
   messageElement.textContent = message;
@@ -24,7 +24,7 @@ function createMessage(templateId: string, message: string, remove: boolean) {
   if (remove) {
     setTimeout(() => {
       messageContainer.remove();
-      app.currentMessageType = null;
+      controller.currentMessageType = null;
     }, 4000);
   }
   scroll(0, cardsWrapper.scrollTop);
@@ -33,14 +33,14 @@ function createMessage(templateId: string, message: string, remove: boolean) {
 function showMessage(messageType: Message) {
   switch (messageType) {
     case 'no-matches':
-      if (app.language === 'en') createMessage('main-message', 'no matches found', false);
+      if (controller.language === 'en') createMessage('main-message', 'no matches found', false);
       else createMessage('main-message', 'совпадений не найдено', false);
-      app.currentMessageType = 'no-matches';
+      controller.currentMessageType = 'no-matches';
       break;
     default:
-      if (app.language === 'en') createMessage('main-message', 'Something went wrong...', false);
+      if (controller.language === 'en') createMessage('main-message', 'Something went wrong...', false);
       else createMessage('main-message', 'Что-то пошло не так', false);
-      app.currentMessageType = 'default';
+      controller.currentMessageType = 'default';
   }
 }
 

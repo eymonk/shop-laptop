@@ -1,5 +1,5 @@
 import { soleCheckboxes, saveSettings } from '../app';
-import controller from '../controller';
+import { draw } from '../controller';
 
 class SoleCheckbox {
   name: string;
@@ -21,7 +21,7 @@ class SoleCheckbox {
       this.element.classList.toggle('checkboxes__box_active');
       SoleCheckbox.setStatus(this);
       saveSettings();
-      controller.draw();
+      draw();
     });
   }
 }

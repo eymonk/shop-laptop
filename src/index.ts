@@ -1,4 +1,4 @@
-import controller from './components/controller';
+import { createFilter, createRange, createSearch, createSelect, createSoleCheckbox } from './components/controller';
 import { loadSettings } from './components/app';
 import './components/search/reset';
 import './assets/svg/telegram-icon.svg';
@@ -13,16 +13,13 @@ import './assets/svg/logo.svg';
 import './index.scss';
 
 // create js components for search-tools
-controller.createRange('year', [2014, 2022]);
-controller.createRange('stock', [1, 10]);
-
-controller.createSearch('main');
-controller.createSelect('sort');
-
-controller.createFilter('brand');
-controller.createFilter('color');
-controller.createFilter('size');
-
-controller.createSoleCheckbox('gaming');
-controller.createSoleCheckbox('popular');
+createRange('year', [2014, 2022]);
+createRange('stock', [1, 10]);
+createSearch('main');
+createSelect('sort');
+createFilter('brand');
+createFilter('color');
+createFilter('size');
+createSoleCheckbox('gaming');
+createSoleCheckbox('popular');
 loadSettings();

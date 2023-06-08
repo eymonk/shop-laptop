@@ -1,5 +1,5 @@
 import { selects, saveSettings } from '../app';
-import controller from '../controller';
+import { draw } from '../controller';
 
 class Select {
   name: string;
@@ -15,7 +15,7 @@ class Select {
     this.element.addEventListener('change', (event) => {
       this.value = (event.target as HTMLSelectElement).value;
       saveSettings();
-      setTimeout(controller.draw);
+      setTimeout(draw);
     });
   }
 }

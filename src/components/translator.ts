@@ -1,5 +1,5 @@
 import { showMessage } from './message/message';
-import app from './app';
+import controller from './controller';
 
 type Language = 'en' | 'ru';
 type Color = 'blue' | 'синий' | 'gray' | 'серый' | 'black' | 'чёрный' | 'white' | 'белый';
@@ -61,19 +61,19 @@ function addPlaceholderToTranslate(node: HTMLElement, en: string, ru: string) {
 
 function translateCard(card: Element) {
   const stockLabel = card.querySelector('.goods__feature-label_in-stock') as HTMLParagraphElement;
+  stockLabel.textContent = controller.language === 'en' ? 'in stock' : 'на складе';
   const yearLabel = card.querySelector('.goods__feature-label_release-year') as HTMLParagraphElement;
+  yearLabel.textContent = controller.language === 'en' ? 'release year' : 'год выхода';
   const gamingLabel = card.querySelector('.goods__feature-label_gaming') as HTMLParagraphElement;
+  gamingLabel.textContent = controller.language === 'en' ? 'gaming' : 'игровой';
   const popularLabel = card.querySelector('.goods__feature-label_popular') as HTMLParagraphElement;
+  popularLabel.textContent = controller.language === 'en' ? 'popular' : 'популярный';
   const colorLabel = card.querySelector('.goods__feature-label_color') as HTMLParagraphElement;
+  colorLabel.textContent = controller.language === 'en' ? 'color' : 'цвет';
   const sizeLabel = card.querySelector('.goods__feature-label_size') as HTMLParagraphElement;
+  sizeLabel.textContent = controller.language === 'en' ? 'size' : 'размер';
   const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
-  stockLabel.textContent = app.language === 'en' ? 'in stock' : 'на складе';
-  yearLabel.textContent = app.language === 'en' ? 'release year' : 'год выхода';
-  sizeLabel.textContent = app.language === 'en' ? 'size' : 'размер';
-  colorLabel.textContent = app.language === 'en' ? 'color' : 'цвет';
-  gamingLabel.textContent = app.language === 'en' ? 'gaming' : 'игровой';
-  popularLabel.textContent = app.language === 'en' ? 'popular' : 'популярный';
-  btnAddToCart.textContent = app.language === 'en' ? 'add to cart' : 'добавить в корзину';
+  btnAddToCart.textContent = controller.language === 'en' ? 'add to cart' : 'добавить в корзину';
   const colorValue = card.querySelector('.goods__feature_color') as HTMLSpanElement;
   colorValue.textContent = translateColor(colorValue.textContent as Color);
   const gamingValue = card.querySelector('.goods__feature_gaming') as HTMLSpanElement;
@@ -113,16 +113,16 @@ function translate(lang: Language) {
   if (lang === 'en') {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.en));
-    app.language = 'en';
+    controller.language = 'en';
   } else {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.ru));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.ru));
-    app.language = 'ru';
+    controller.language = 'ru';
   }
   translateCards();
   translateCartItems();
   //to translate system message
-  if (app.currentMessageType) showMessage(app.currentMessageType);
+  if (controller.currentMessageType) showMessage(controller.currentMessageType);
   localStorage.setItem('language', lang);
 }
 
@@ -221,7 +221,7 @@ addNodeToTranslate(
 );
 
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
-translateBtn.addEventListener('click', () => translate(app.language === 'en' ? 'ru' : 'en'));
+translateBtn.addEventListener('click', () => translate(controller.language === 'en' ? 'ru' : 'en'));
 
 export default translate;
 export { Language, translateCard, translateCartItem };

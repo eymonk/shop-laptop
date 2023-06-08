@@ -1,8 +1,7 @@
 import { addToCart, findQuantityInCart } from '../cart/cart';
 import { itemKeys, LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
-import app from '../app';
-
+import controller from '../controller';
 function setCardCartCounter(id: number) {
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
   const cartCounter = card.querySelector('.goods__cart-counter') as HTMLParagraphElement;
@@ -20,7 +19,7 @@ function turnCartIcon(id: number, action: 'on' | 'off') {
 function createClone() {
   const template = document.querySelector('#goods-item') as HTMLTemplateElement;
   const clone = template.content.cloneNode(true) as HTMLElement;
-  app.language === 'ru' && translateCard(clone);
+  controller.language === 'ru' && translateCard(clone);
   return [
     clone,
     {

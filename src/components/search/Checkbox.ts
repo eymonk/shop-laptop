@@ -1,6 +1,5 @@
-import { filters, saveSettings} from '../app';
-import controller from '../controller';
-
+import { filters, saveSettings } from '../app';
+import { draw } from '../controller';
 class Checkbox {
   wrapper: Element;
   element: Element;
@@ -19,12 +18,11 @@ class Checkbox {
       this.element.classList.toggle('checkboxes__box_active');
       this.status = this.setStatus();
       saveSettings();
-      controller.draw();
+      draw();
     });
 
     filters[name][this.key] = this;
   }
-
   setStatus() {
     return !filters[this.filter][this.key].status;
   }
