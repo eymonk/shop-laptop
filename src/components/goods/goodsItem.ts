@@ -17,56 +17,57 @@ function turnCartIcon(id: number, action: 'on' | 'off') {
   setCardCartCounter(id);
 }
 
-class Card {
-  readonly #itemData: LaptopData;
-  element: HTMLDivElement;
-  constructor(itemData: LaptopData) {
-    this.#itemData = itemData;
-    const [clone, itemElements] = this.#createClone();
-    const id = this.#itemData.id;
-
-    //assign common props from incoming data-object to current card;
-    Object.keys(itemElements).forEach((key) => {
-      const currentElement = itemElements[key as keyof typeof itemElements] as HTMLElement;
-      currentElement.textContent = itemData[key as itemKeys].toString();
-    });
-
-    const goodsSection = document.querySelector('.goods');
-    const card = (clone as HTMLElement).querySelector('.goods__card') as HTMLDivElement;
-    const img = card.querySelector('.goods__card-img') as HTMLImageElement;
-
-    card.id = `good-card-${id}`;
-    img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${id}.jpg?raw=true`;
-    goodsSection?.appendChild(card);
-    this.element = card;
-    app.language === 'ru' && translateCard(card);
-    const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
-    btnAddToCart.addEventListener('click', () => {
-      addToCart(this.#itemData);
-      turnCartIcon(id, 'on');
-    });
-    const quantityInCart = findQuantityInCart(id);
-    if (quantityInCart) turnCartIcon(id, 'on');
-  }
-
-  #createClone() {
-    const template = document.querySelector('#goods-item') as HTMLTemplateElement;
-    const clone = template.content.cloneNode(true) as HTMLElement;
-    return [
-      clone,
-      {
-        brand: clone.querySelector('.goods__brand') as HTMLHeadingElement,
-        model: clone.querySelector('.goods__model') as HTMLParagraphElement,
-        year: clone.querySelector('.goods__feature_year') as HTMLSpanElement,
-        stock: clone.querySelector('.goods__feature_stock') as HTMLSpanElement,
-        size: clone.querySelector('.goods__feature_size') as HTMLSpanElement,
-        color: clone.querySelector('.goods__feature_color') as HTMLSpanElement,
-        gaming: clone.querySelector('.goods__feature_gaming') as HTMLSpanElement,
-        popular: clone.querySelector('.goods__feature_popular') as HTMLSpanElement,
-      },
-    ];
-  }
+function createClone() {
+  const template = document.querySelector('#goods-item') as HTMLTemplateElement;
+  const clone = template.content.cloneNode(true) as HTMLElement;
+  app.language === 'ru' && translateCard(clone);
+  return [
+    clone,
+    {
+      brand: clone.querySelector('.goods__brand') as HTMLHeadingElement,
+      model: clone.querySelector('.goods__model') as HTMLParagraphElement,
+      year: clone.querySelector('.goods__feature_year') as HTMLSpanElement,
+      stock: clone.querySelector('.goods__feature_stock') as HTMLSpanElement,
+      size: clone.querySelector('.goods__feature_size') as HTMLSpanElement,
+      color: clone.querySelector('.goods__feature_color') as HTMLSpanElement,
+      gaming: clone.querySelector('.goods__feature_gaming') as HTMLSpanElement,
+      popular: clone.querySelector('.goods__feature_popular') as HTMLSpanElement,
+    },
+  ];
 }
 
-export default Card;
-export { turnCartIcon, setCardCartCounter };
+function appendCard(card: HTMLDivElement) {
+  const goodsSection = document.querySelector('.goods');
+  const element = card.querySelector('.goods__card') as HTMLDivElement;
+  element.id = card.id;
+  goodsSection?.appendChild(card);
+}
+
+function setupCard(card: HTMLDivElement, itemData: LaptopData) {
+  const img = card.querySelector('.goods__card-img') as HTMLImageElement;
+  const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
+  img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${itemData.id}.jpg?raw=true`;
+  card.id = `good-card-${itemData.id}`;
+
+  btnAddToCart.addEventListener('click', () => {
+    addToCart(itemData);
+    turnCartIcon(itemData.id, 'on');
+  });
+  appendCard(card);
+  const quantityInCart = findQuantityInCart(itemData.id);
+  if (quantityInCart) turnCartIcon(itemData.id, 'on');
+}
+
+function createItemCard(itemData: LaptopData) {
+  const [clone, itemElements] = createClone();
+
+  //assign common props from incoming data-object to current card;
+  Object.keys(itemElements).forEach((key) => {
+    const currentElement = itemElements[key as keyof typeof itemElements] as HTMLElement;
+    currentElement.textContent = itemData[key as itemKeys].toString();
+  });
+
+  setupCard(clone as HTMLDivElement, itemData);
+}
+
+export { createItemCard, turnCartIcon, setCardCartCounter };

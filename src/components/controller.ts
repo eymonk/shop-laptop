@@ -5,9 +5,9 @@ import Checkbox from './search/Checkbox';
 import filters from './search/filters';
 import Search from './search/Search';
 import Select from './search/Select';
-import Card from './goods/goodsItem';
 import data from '../assets/goods';
 import app from './app';
+import { createItemCard } from "./goods/goodsItem";
 
 const controller = {
   data: [...data],
@@ -103,7 +103,7 @@ const controller = {
       if (!filters.checkbox(item, 'size')) result = false;
       if (!filters.soleCheckbox(item, 'gaming', false)) result = false;
       if (!filters.soleCheckbox(item, 'popular', true)) result = false;
-      if (result) new Card(item);
+      if (result) createItemCard(item);
     });
     controller.checkMatches();
   },
