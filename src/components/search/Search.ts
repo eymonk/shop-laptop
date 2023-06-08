@@ -1,4 +1,4 @@
-import app, { saveSettings } from '../app';
+import { searches, saveSettings } from '../app';
 import controller from '../controller';
 
 class Search {
@@ -29,7 +29,7 @@ class Search {
       }
     });
 
-    app.searches[name] = this;
+    searches[name] = this;
   }
 }
 

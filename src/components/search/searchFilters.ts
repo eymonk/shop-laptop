@@ -1,17 +1,17 @@
 import { itemKeys, LaptopData } from '../../assets/goods';
 import { doubleRangeValues } from './DoubleRange';
-import app from '../app';
+import { filters, searches, soleCheckboxes } from '../app';
 
 enum rangeValues {
   min,
   max,
 }
 
-const filters = {
+const searchFilters = {
   search(item: LaptopData, searchName: string) {
     const itemInfo = item.brand.concat(item.model).toLowerCase();
     let result = false;
-    let inputValue = app.searches[searchName].value.toLowerCase();
+    let inputValue = searches[searchName].value.toLowerCase();
 
     if (inputValue.includes(' ')) inputValue = inputValue.split(' ').join('');
     if (itemInfo.includes(inputValue)) result = true;
@@ -40,7 +40,7 @@ const filters = {
   checkbox(item: LaptopData, filterName: itemKeys) {
     let result = false;
     const filterValue = item[filterName].toString().toLowerCase();
-    if (app.filters[filterName][filterValue].status) result = true;
+    if (filters[filterName][filterValue].status) result = true;
     return result;
   },
 
@@ -48,15 +48,15 @@ const filters = {
     let result = false;
 
     if (isFilter) {
-      if (!app.soleCheckboxes[checkboxName].status) result = true;
-      else if (app.soleCheckboxes[checkboxName].status && item[checkboxName] === 'yes') result = true;
+      if (!soleCheckboxes[checkboxName].status) result = true;
+      else if (soleCheckboxes[checkboxName].status && item[checkboxName] === 'yes') result = true;
     } else {
-      if (app.soleCheckboxes[checkboxName].status) result = true;
-      else if (!app.soleCheckboxes[checkboxName].status && item[checkboxName] === 'no') result = true;
+      if (soleCheckboxes[checkboxName].status) result = true;
+      else if (!soleCheckboxes[checkboxName].status && item[checkboxName] === 'no') result = true;
     }
 
     return result;
   },
 };
 
-export default filters;
+export default searchFilters;

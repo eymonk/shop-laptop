@@ -1,7 +1,7 @@
-import app from '../app';
 import { addToCart, findQuantityInCart } from '../cart/cart';
 import { itemKeys, LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
+import app from '../app';
 
 function setCardCartCounter(id: number) {
   const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;

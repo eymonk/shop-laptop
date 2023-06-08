@@ -7,139 +7,140 @@ import Checkbox from './search/Checkbox';
 import Search from './search/Search';
 import Select from './search/Select';
 
+// RANGES
+const ranges: { [key: string]: DoubleRange } = {};
+function saveRangeSettings() {
+  Object.keys(ranges).forEach((rangeName) => {
+    localStorage.setItem(`${rangeName}`, `${ranges[rangeName].values[0]},${ranges[rangeName].values[1]}`);
+  });
+}
+
+function loadRanges() {
+  const yearRangeValue = localStorage.getItem('year')?.split(',');
+  if (yearRangeValue) {
+    const min = parseInt(yearRangeValue[0]);
+    const max = parseInt(yearRangeValue[1]);
+    ranges.year.values = [min, max];
+    ranges.year.element.noUiSlider?.setHandle(0, min);
+    ranges.year.element.noUiSlider?.setHandle(1, max);
+  }
+
+  const stockRangeValue = localStorage.getItem('stock')?.split(',');
+  if (stockRangeValue) {
+    const min = parseInt(stockRangeValue[0]);
+    const max = parseInt(stockRangeValue[1]);
+    ranges.stock.values = [min, max];
+    ranges.stock.element.noUiSlider?.setHandle(0, min);
+    ranges.stock.element.noUiSlider?.setHandle(1, max);
+  }
+}
+
+// FILTERS
+const filters: { [key: string]: { [key: string]: Checkbox } } = {};
+function saveFilterSettings() {
+  Object.keys(filters).forEach((name) => {
+    const filter = filters[name];
+    Object.keys(filter).forEach((key) => {
+      localStorage.setItem(`filter-${name}-${key}`, `${filter[key].status}`);
+    });
+  });
+}
+
+function loadFilters() {
+  Object.keys(filters).forEach((name) => {
+    const filter = filters[name];
+    Object.keys(filter).forEach((key) => {
+      let statusValue: boolean;
+      const value = localStorage.getItem(`filter-${name}-${key}`);
+
+      if (value === 'false') {
+        statusValue = false;
+        filter[key].element.classList.remove('checkboxes__box_active');
+      } else {
+        statusValue = true;
+        filter[key].element.classList.add('checkboxes__box_active');
+      }
+
+      filter[key].status = statusValue;
+    });
+  });
+}
+
+// SOLE CHECKBOXES
+const soleCheckboxes: { [key: string]: SoleCheckbox } = {};
+function saveSoleCheckboxes() {
+  Object.keys(soleCheckboxes).forEach((name) => {
+    const box = soleCheckboxes[name];
+    localStorage.setItem(`sole-checkbox-${name}`, `${box.status}`);
+  });
+}
+
+function loadSoleCheckboxes() {
+  Object.keys(soleCheckboxes).forEach((boxName) => {
+    const value = localStorage.getItem(`sole-checkbox-${boxName}`);
+    const currentBox = soleCheckboxes[boxName];
+    let statusValue = true;
+
+    if (value) {
+      if (value === 'false') statusValue = false;
+    } else if (boxName === 'popular') statusValue = false;
+
+    if (statusValue) currentBox.element.classList.add('checkboxes__box_active');
+    else currentBox.element.classList.remove('checkboxes__box_active');
+    currentBox.status = statusValue;
+  });
+}
+
+// SEARCHES
+const searches: { [key: string]: Search } = {};
+function loadSearches() {
+  const mainSearchValue = localStorage.getItem('search-main');
+  if (mainSearchValue) {
+    const icon = document.querySelector(`.search_main-icon`) as HTMLImageElement;
+    searches.main.value = mainSearchValue;
+    searches.main.element.value = mainSearchValue;
+    icon.src = 'svg/close.svg';
+  }
+}
+
+// SELECTS
+const selects: { [key: string]: Select } = {};
+function loadSelects() {
+  const sortSelectValue = localStorage.getItem('sort');
+  if (sortSelectValue) {
+    selects.sort.value = sortSelectValue;
+    selects.sort.element.value = sortSelectValue;
+  }
+}
+
+function loadSettings() {
+  loadSearches();
+  loadSelects();
+  loadRanges();
+  loadFilters();
+  loadSoleCheckboxes();
+  translate(localStorage.getItem('language') as Language);
+  setupCart();
+}
+
 interface App {
   currentMessageType: Message;
   language: 'ru' | 'en';
-  searches: { [key: string]: Search };
-  ranges: { [key: string]: DoubleRange };
-  filters: { [key: string]: { [key: string]: Checkbox } };
-  soleCheckboxes: { [key: string]: SoleCheckbox };
-  selects: { [key: string]: Select };
-  elements: { [key: string]: Element };
-
-  saveRangeSettings: () => void;
-  saveFilterSettings: () => void;
-  saveSoleCheckboxes: () => void;
-  loadSettings: () => void;
 }
 
 const app: App = {
   language: 'en',
   currentMessageType: null,
-  searches: {},
-  ranges: {},
-  filters: {},
-  soleCheckboxes: {},
-  selects: {},
-  elements: {
-    cart: document.querySelector('.header__link_cart') as HTMLElement,
-    goods: document.querySelector('.goods') as HTMLElement,
-  },
-
-  saveRangeSettings() {
-    Object.keys(this.ranges).forEach((rangeName) => {
-      localStorage.setItem(`${rangeName}`, `${this.ranges[rangeName].values[0]},${this.ranges[rangeName].values[1]}`);
-    });
-  },
-
-  saveFilterSettings() {
-    Object.keys(this.filters).forEach((name) => {
-      const filter = this.filters[name];
-      Object.keys(filter).forEach((key) => {
-        localStorage.setItem(`filter-${name}-${key}`, `${filter[key].status}`);
-      });
-    });
-  },
-
-  saveSoleCheckboxes() {
-    Object.keys(this.soleCheckboxes).forEach((name) => {
-      const box = this.soleCheckboxes[name];
-      localStorage.setItem(`sole-checkbox-${name}`, `${box.status}`);
-    });
-  },
-
-  loadSettings() {
-    //search
-    const mainSearchValue = localStorage.getItem('search-main');
-    if (mainSearchValue) {
-      const icon = document.querySelector(`.search_main-icon`) as HTMLImageElement;
-      this.searches.main.value = mainSearchValue;
-      this.searches.main.element.value = mainSearchValue;
-      icon.src = 'svg/close.svg';
-    }
-
-    //select
-    const sortSelectValue = localStorage.getItem('sort');
-    if (sortSelectValue) {
-      this.selects.sort.value = sortSelectValue;
-      this.selects.sort.element.value = sortSelectValue;
-    }
-
-    //ranges
-    const yearRangeValue = localStorage.getItem('year')?.split(',');
-    if (yearRangeValue) {
-      const min = parseInt(yearRangeValue[0]);
-      const max = parseInt(yearRangeValue[1]);
-      this.ranges.year.values = [min, max];
-      this.ranges.year.element.noUiSlider?.setHandle(0, min);
-      this.ranges.year.element.noUiSlider?.setHandle(1, max);
-    }
-
-    const stockRangeValue = localStorage.getItem('stock')?.split(',');
-    if (stockRangeValue) {
-      const min = parseInt(stockRangeValue[0]);
-      const max = parseInt(stockRangeValue[1]);
-      this.ranges.stock.values = [min, max];
-      this.ranges.stock.element.noUiSlider?.setHandle(0, min);
-      this.ranges.stock.element.noUiSlider?.setHandle(1, max);
-    }
-
-    //filters
-    Object.keys(this.filters).forEach((name) => {
-      const filter = this.filters[name];
-      Object.keys(filter).forEach((key) => {
-        let statusValue: boolean;
-        const value = localStorage.getItem(`filter-${name}-${key}`);
-
-        if (value === 'false') {
-          statusValue = false;
-          filter[key].element.classList.remove('checkboxes__box_active');
-        } else {
-          statusValue = true;
-          filter[key].element.classList.add('checkboxes__box_active');
-        }
-
-        filter[key].status = statusValue;
-      });
-    });
-
-    //soleCheckboxes
-    Object.keys(this.soleCheckboxes).forEach((boxName) => {
-      const value = localStorage.getItem(`sole-checkbox-${boxName}`);
-      const currentBox = this.soleCheckboxes[boxName];
-      let statusValue = true;
-
-      if (value) {
-        if (value === 'false') statusValue = false;
-      } else if (boxName === 'popular') statusValue = false;
-
-      if (statusValue) currentBox.element.classList.add('checkboxes__box_active');
-      else currentBox.element.classList.remove('checkboxes__box_active');
-      currentBox.status = statusValue;
-    });
-    translate(localStorage.getItem('language') as Language);
-    setupCart();
-  },
 };
 
 function saveSettings() {
-  localStorage.setItem(`search-main`, app.searches.main.value);
-  localStorage.setItem(`sort`, app.selects.sort.value);
-  app.saveRangeSettings();
-  app.saveFilterSettings();
-  app.saveSoleCheckboxes();
+  localStorage.setItem(`search-main`, searches.main.value);
+  localStorage.setItem(`sort`, selects.sort.value);
+  saveRangeSettings();
+  saveFilterSettings();
+  saveSoleCheckboxes();
   localStorage.setItem(`cartItemsIds`, `${cartItemsIds.slice()}`);
 }
 
 export default app;
-export { saveSettings };
+export { filters, searches, soleCheckboxes, selects, ranges, saveSettings, loadSettings };

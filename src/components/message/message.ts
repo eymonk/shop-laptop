@@ -9,6 +9,7 @@ function removeMessage() {
 
 function createMessage(templateId: string, message: string, remove: boolean) {
   if (app.currentMessageType) removeMessage();
+  const cardsWrapper = document.querySelector('.goods') as HTMLDivElement;
   const template = document.querySelector(`#${templateId}`) as HTMLTemplateElement;
   const clone = template.content.cloneNode(true) as HTMLDivElement;
   const messageContainer = clone.querySelector(`.message__container`) as HTMLDivElement;
@@ -19,14 +20,14 @@ function createMessage(templateId: string, message: string, remove: boolean) {
   else messageTitle.textContent = 'системное сообщение';
 
   messageElement.textContent = message;
-  if (app.elements.goods.querySelector('.main-message') == null) app.elements.goods.append(messageContainer);
+  if (cardsWrapper.querySelector('.main-message') == null) cardsWrapper.append(messageContainer);
   if (remove) {
     setTimeout(() => {
       messageContainer.remove();
       app.currentMessageType = null;
     }, 4000);
   }
-  scroll(0, app.elements.goods.scrollTop);
+  scroll(0, cardsWrapper.scrollTop);
 }
 
 function showMessage(messageType: Message) {

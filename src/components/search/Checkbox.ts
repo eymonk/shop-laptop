@@ -1,4 +1,4 @@
-import app, { saveSettings } from '../app';
+import { filters, saveSettings} from '../app';
 import controller from '../controller';
 
 class Checkbox {
@@ -22,11 +22,11 @@ class Checkbox {
       controller.draw();
     });
 
-    app.filters[name][this.key] = this;
+    filters[name][this.key] = this;
   }
 
   setStatus() {
-    return !app.filters[this.filter][this.key].status;
+    return !filters[this.filter][this.key].status;
   }
 }
 

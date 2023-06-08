@@ -1,5 +1,5 @@
 import controller from './components/controller';
-import app from './components/app';
+import { loadSettings } from './components/app';
 import './components/search/reset';
 import './assets/svg/telegram-icon.svg';
 import './assets/svg/github-icon.svg';
@@ -25,4 +25,4 @@ controller.createFilter('size');
 
 controller.createSoleCheckbox('gaming');
 controller.createSoleCheckbox('popular');
-app.loadSettings();
+loadSettings();

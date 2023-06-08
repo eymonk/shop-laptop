@@ -1,4 +1,4 @@
-import app, { saveSettings } from '../app';
+import { selects, saveSettings } from '../app';
 import controller from '../controller';
 
 class Select {
@@ -11,7 +11,7 @@ class Select {
     this.element = element;
     this.value = this.element.value;
 
-    app.selects[name] = this;
+    selects[name] = this;
     this.element.addEventListener('change', (event) => {
       this.value = (event.target as HTMLSelectElement).value;
       saveSettings();

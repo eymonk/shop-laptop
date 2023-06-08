@@ -1,6 +1,6 @@
 import * as noUiSlider from 'nouislider';
-import { saveSettings } from '../app';
 import controller from '../controller';
+import { saveSettings } from '../app';
 
 type doubleRangeValues = [number, number];
 type doubleRangeInfo = [HTMLParagraphElement, HTMLParagraphElement];
