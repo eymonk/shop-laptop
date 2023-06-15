@@ -1,9 +1,9 @@
+import { SearchMessage, showMessage } from './searchMessage/searchMessage';
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
 import { selects, ranges, filters } from './app';
 import searchFilters from './search/searchFilters';
-import { createItemCard } from './goods/goodsItem';
+import { createItemCard } from './card/card';
 import SoleCheckbox from './search/SoleCheckbox';
-import { Message, showMessage } from './message/message';
 import Checkbox from './search/Checkbox';
 import Search from './search/Search';
 import Select from './search/Select';
@@ -12,7 +12,7 @@ import data from '../assets/goods';
 const itemsData = [...data];
 
 interface Controller {
-  currentMessageType: Message;
+  currentMessageType: SearchMessage;
   language: 'ru' | 'en';
 }
 

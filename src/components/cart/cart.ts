@@ -1,5 +1,5 @@
 import { getItemById, getStockQuantity, LaptopData } from '../../assets/goods';
-import { setCardCartCounter, turnCartIcon } from '../goods/goodsItem';
+import { setCardCartCounter, turnCartIcon } from '../card/card';
 import { translateCartItem } from '../translator';
 import { saveSettings } from '../app';
 import controller from '../controller';

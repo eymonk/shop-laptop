@@ -3,15 +3,15 @@ import { itemKeys, LaptopData } from '../../assets/goods';
 import { translateCard } from '../translator';
 import controller from '../controller';
 function setCardCartCounter(id: number) {
-  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
-  const cartCounter = card.querySelector('.goods__cart-counter') as HTMLParagraphElement;
+  const card = document.querySelector(`#card-${id}`) as HTMLDivElement;
+  const cartCounter = card.querySelector('.card__cart-counter') as HTMLParagraphElement;
   cartCounter.textContent = `${findQuantityInCart(id)}`;
 }
 
 function turnCartIcon(id: number, action: 'on' | 'off') {
-  const card = document.querySelector(`#good-card-${id}`) as HTMLDivElement;
+  const card = document.querySelector(`#card-${id}`) as HTMLDivElement;
   if (card) {
-    const iconWrapper = card.querySelector('.goods__cart-icon-wrapper') as HTMLImageElement;
+    const iconWrapper = card.querySelector('.card__cart-icon-wrapper') as HTMLImageElement;
     if (action === 'on') iconWrapper.classList.remove('hidden');
     else iconWrapper.classList.add('hidden');
     setCardCartCounter(id);
@@ -19,36 +19,36 @@ function turnCartIcon(id: number, action: 'on' | 'off') {
 }
 
 function createClone() {
-  const template = document.querySelector('#goods-item') as HTMLTemplateElement;
+  const template = document.querySelector('#item-card') as HTMLTemplateElement;
   const clone = template.content.cloneNode(true) as HTMLElement;
   controller.language === 'ru' && translateCard(clone);
   return [
     clone,
     {
-      brand: clone.querySelector('.goods__brand') as HTMLHeadingElement,
-      model: clone.querySelector('.goods__model') as HTMLParagraphElement,
-      year: clone.querySelector('.goods__feature_year') as HTMLSpanElement,
-      stock: clone.querySelector('.goods__feature_stock') as HTMLSpanElement,
-      size: clone.querySelector('.goods__feature_size') as HTMLSpanElement,
-      color: clone.querySelector('.goods__feature_color') as HTMLSpanElement,
-      gaming: clone.querySelector('.goods__feature_gaming') as HTMLSpanElement,
-      popular: clone.querySelector('.goods__feature_popular') as HTMLSpanElement,
+      brand: clone.querySelector('.card__brand') as HTMLHeadingElement,
+      model: clone.querySelector('.card__model') as HTMLParagraphElement,
+      year: clone.querySelector('.card__feature_year') as HTMLSpanElement,
+      stock: clone.querySelector('.card__feature_stock') as HTMLSpanElement,
+      size: clone.querySelector('.card__feature_size') as HTMLSpanElement,
+      color: clone.querySelector('.card__feature_color') as HTMLSpanElement,
+      gaming: clone.querySelector('.card__feature_gaming') as HTMLSpanElement,
+      popular: clone.querySelector('.card__feature_popular') as HTMLSpanElement,
     },
   ];
 }
 
 function appendCard(card: HTMLDivElement) {
   const goodsSection = document.querySelector('.goods');
-  const element = card.querySelector('.goods__card') as HTMLDivElement;
+  const element = card.querySelector('.card') as HTMLDivElement;
   element.id = card.id;
   goodsSection?.appendChild(card);
 }
 
 function setupCard(card: HTMLDivElement, itemData: LaptopData) {
-  const img = card.querySelector('.goods__card-img') as HTMLImageElement;
-  const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
+  const img = card.querySelector('.card__img') as HTMLImageElement;
+  const btnAddToCart = card.querySelector('.card__btn_add') as HTMLButtonElement;
   img.src = `https://github.com/jaysuno0/for-tasks/blob/main/laptops/${itemData.id}.jpg?raw=true`;
-  card.id = `good-card-${itemData.id}`;
+  card.id = `card-${itemData.id}`;
 
   btnAddToCart.addEventListener('click', () => {
     addToCart(itemData);

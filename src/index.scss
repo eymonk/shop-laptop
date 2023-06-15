@@ -1,15 +1,12 @@
-/* elements */
-@use './components/header/header';
-@use './components/goods/goods';
-@use './components/search/search';
-@use './components/message/message';
-@use './components/cart/cart';
-@use './components/footer/footer';
-
-/* assets */
-@use './assets/sass/colors';
-@use './assets/sass/animations';
+@use 'components/searchMessage/searchMessage';
 @use './assets/sass/box-model' as box;
+@use './components/header/header';
+@use './components/search/search';
+@use './components/footer/footer';
+@use './assets/sass/animations';
+@use './components/cart/cart';
+@use './assets/sass/colors';
+@use 'components/card/card';
 
 
 /*** GENERAL ***/

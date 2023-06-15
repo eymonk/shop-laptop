@@ -1,4 +1,4 @@
-import { showMessage } from './message/message';
+import { showMessage } from './searchMessage/searchMessage';
 import controller from './controller';
 
 type Language = 'en' | 'ru';
@@ -60,27 +60,27 @@ function addPlaceholderToTranslate(node: HTMLElement, en: string, ru: string) {
 }
 
 function translateCard(card: Element) {
-  const stockLabel = card.querySelector('.goods__feature-label_in-stock') as HTMLParagraphElement;
+  const stockLabel = card.querySelector('.card__feature-label_in-stock') as HTMLParagraphElement;
   stockLabel.textContent = controller.language === 'en' ? 'in stock' : 'на складе';
-  const yearLabel = card.querySelector('.goods__feature-label_release-year') as HTMLParagraphElement;
+  const yearLabel = card.querySelector('.card__feature-label_release-year') as HTMLParagraphElement;
   yearLabel.textContent = controller.language === 'en' ? 'release year' : 'год выхода';
-  const gamingLabel = card.querySelector('.goods__feature-label_gaming') as HTMLParagraphElement;
+  const gamingLabel = card.querySelector('.card__feature-label_gaming') as HTMLParagraphElement;
   gamingLabel.textContent = controller.language === 'en' ? 'gaming' : 'игровой';
-  const popularLabel = card.querySelector('.goods__feature-label_popular') as HTMLParagraphElement;
+  const popularLabel = card.querySelector('.card__feature-label_popular') as HTMLParagraphElement;
   popularLabel.textContent = controller.language === 'en' ? 'popular' : 'популярный';
-  const colorLabel = card.querySelector('.goods__feature-label_color') as HTMLParagraphElement;
+  const colorLabel = card.querySelector('.card__feature-label_color') as HTMLParagraphElement;
   colorLabel.textContent = controller.language === 'en' ? 'color' : 'цвет';
-  const sizeLabel = card.querySelector('.goods__feature-label_size') as HTMLParagraphElement;
+  const sizeLabel = card.querySelector('.card__feature-label_size') as HTMLParagraphElement;
   sizeLabel.textContent = controller.language === 'en' ? 'size' : 'размер';
-  const btnAddToCart = card.querySelector('.goods__btn_add') as HTMLButtonElement;
+  const btnAddToCart = card.querySelector('.card__btn_add') as HTMLButtonElement;
   btnAddToCart.textContent = controller.language === 'en' ? 'add to cart' : 'добавить в корзину';
-  const colorValue = card.querySelector('.goods__feature_color') as HTMLSpanElement;
+  const colorValue = card.querySelector('.card__feature_color') as HTMLSpanElement;
   colorValue.textContent = translateColor(colorValue.textContent as Color);
-  const gamingValue = card.querySelector('.goods__feature_gaming') as HTMLSpanElement;
+  const gamingValue = card.querySelector('.card__feature_gaming') as HTMLSpanElement;
   gamingValue.textContent = translateWord(gamingValue.textContent as string);
-  const popularValue = card.querySelector('.goods__feature_popular') as HTMLSpanElement;
+  const popularValue = card.querySelector('.card__feature_popular') as HTMLSpanElement;
   popularValue.textContent = translateWord(popularValue.textContent as string);
-  const sizeValue = card.querySelector('.goods__feature_size') as HTMLSpanElement;
+  const sizeValue = card.querySelector('.card__feature_size') as HTMLSpanElement;
   sizeValue.textContent = translateWord(sizeValue.textContent as string);
 }
 
@@ -121,7 +121,7 @@ function translate(lang: Language) {
   }
   translateCards();
   translateCartItems();
-  //to translate system message
+  //to translate system searchMessage
   if (controller.currentMessageType) showMessage(controller.currentMessageType);
   localStorage.setItem('language', lang);
 }
