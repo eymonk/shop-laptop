@@ -1,5 +1,4 @@
-import { selects, saveSettings } from '../app';
-import { draw } from '../controller';
+import { selects, saveSettings, draw } from '../app';
 
 class Select {
   name: string;

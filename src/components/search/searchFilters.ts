@@ -1,6 +1,6 @@
+import { filters, searches, soleCheckboxes } from '../app';
 import { itemKeys, LaptopData } from '../../assets/goods';
 import { doubleRangeValues } from './DoubleRange';
-import { filters, searches, soleCheckboxes } from '../app';
 
 enum rangeValues {
   min,

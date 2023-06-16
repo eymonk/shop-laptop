@@ -1,7 +1,7 @@
 @use '../../assets/sass/box-model' as box;
 @use '../../assets/sass/colors';
-@use '../../components/general/range';
-@use '../../components/general/checkbox';
+@use 'range';
+@use 'checkbox';
 
 .search {
   width: 300px;

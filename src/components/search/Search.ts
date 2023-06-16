@@ -1,5 +1,4 @@
-import { searches, saveSettings } from '../app';
-import { draw } from '../controller';
+import { searches, saveSettings, draw } from '../app';
 
 class Search {
   element: HTMLInputElement;

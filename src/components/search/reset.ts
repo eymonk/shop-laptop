@@ -1,5 +1,4 @@
-import { draw } from '../controller';
-import { filters, ranges, searches, soleCheckboxes} from '../app';
+import { filters, ranges, searches, soleCheckboxes, draw } from '../app';
 
 // RESET FILTERS
 const resetSearch = function () {

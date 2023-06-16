@@ -1,5 +1,4 @@
-import { soleCheckboxes, saveSettings } from '../app';
-import { draw } from '../controller';
+import { soleCheckboxes, saveSettings, draw } from '../app';
 
 class SoleCheckbox {
   name: string;

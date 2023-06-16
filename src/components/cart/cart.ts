@@ -2,7 +2,7 @@ import { getItemById, getStockQuantity, LaptopData } from '../../assets/goods';
 import { setCardCartCounter, turnCartIcon } from '../card/card';
 import { translateCartItem } from '../translator';
 import { saveSettings } from '../app';
-import controller from '../controller';
+import app from '../app';
 
 const cartElement = document.querySelector('.cart') as HTMLDivElement;
 const cartItemsIds: number[] = [];
@@ -87,7 +87,7 @@ function changeItemQuantity(id: number, action: 'add' | 'remove') {
     if (Number(getStockQuantity(id)) > findQuantityInCart(id)) {
       newItemQuantity = Number(cartItemQuantity.textContent) + 1;
       cartItemsIds.push(id);
-    } else alert(controller.language === 'en' ? 'No more in stock.' : 'Больше нет на складе.');
+    } else alert(app.language === 'en' ? 'No more in stock.' : 'Больше нет на складе.');
   } else if (Number(cartItemQuantity.textContent) > 1) {
     newItemQuantity = Number(cartItemQuantity.textContent) - 1;
     cartItemsIds.splice(cartItemsIds.indexOf(id), 1);
@@ -109,7 +109,7 @@ function setupCartElement(id: number, element: DocumentFragment) {
   const cartItemElement = element.querySelector('.cart__item') as HTMLDivElement;
   cartItemElement.id = `cart-item-${id}`;
   appendItemElement(element);
-  controller.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
+  app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {

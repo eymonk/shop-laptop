@@ -1,4 +1,4 @@
-import { createFilter, createRange, createSearch, createSelect, createSoleCheckbox } from './components/controller';
+import { createFilter, createRange, createSearch, createSelect, createSoleCheckbox } from './components/app';
 import { loadSettings } from './components/app';
 import './components/search/reset';
 import './assets/svg/telegram-icon.svg';

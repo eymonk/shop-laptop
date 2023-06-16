@@ -1,5 +1,4 @@
-import { filters, saveSettings } from '../app';
-import { draw } from '../controller';
+import { filters, saveSettings, draw } from '../app';
 class Checkbox {
   wrapper: Element;
   element: Element;
