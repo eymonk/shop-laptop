@@ -212,7 +212,7 @@ addNodeToTranslate(
   'товаров добавлено:'
 );
 
-addNodeToTranslate(document.querySelector('.cart__btn_checkout') as HTMLInputElement, 'checkout', 'оформить заказ');
+addNodeToTranslate(document.querySelector('.cart__btn_checkout-open') as HTMLInputElement, 'checkout', 'оформить заказ');
 addNodeToTranslate(
   document.querySelector('.cart-checkout__text') as HTMLInputElement,
   'Thank you for your time and for visiting this page. If you have any questions or job offers - contact me, please. Have a nice day :)',

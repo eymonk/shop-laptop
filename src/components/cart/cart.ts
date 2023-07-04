@@ -136,4 +136,10 @@ cartIcon.addEventListener('click', openCart);
 const cartBtnClose = document.querySelector('.cart__btn_close') as HTMLButtonElement;
 cartBtnClose.addEventListener('click', closeCart);
 
+const cartCheckout = document.querySelector('.cart-checkout') as HTMLDivElement;
+const cartBtnCheckoutOpen = document.querySelector('.cart__btn_checkout-open') as HTMLButtonElement;
+const cartBtnCheckoutClose = document.querySelector('.cart__btn_checkout-close') as HTMLButtonElement;
+cartBtnCheckoutOpen.addEventListener('click', () => cartCheckout.classList.remove('hidden'));
+cartBtnCheckoutClose.addEventListener('click', () => cartCheckout.classList.add('hidden'));
+
 export { addToCart, setupCart, findQuantityInCart, cartItemsIds };
