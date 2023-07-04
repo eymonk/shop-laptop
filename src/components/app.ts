@@ -1,7 +1,7 @@
 import { SearchMessage, showMessage } from './searchMessage/searchMessage';
 import { DoubleRange, doubleRangeValues } from './search/DoubleRange';
 import { cartItemsIds, setupCart } from './cart/cart';
-import translate, { Language } from './translator';
+import translate, {Language, translateCards} from './translator';
 import searchFilters from './search/searchFilters';
 import SoleCheckbox from './search/SoleCheckbox';
 import { createItemCard } from './card/card';
@@ -175,8 +175,12 @@ function loadSettings() {
   loadRanges();
   loadFilters();
   loadSoleCheckboxes();
-  translate(localStorage.getItem('language') as Language);
   setupCart();
+  setTimeout(() => {
+    let lang = localStorage.getItem('language');
+    if (!lang || lang === 'null') lang = 'en';
+    translate(lang as Language);
+  }, 0);
 }
 
 function saveSettings() {
@@ -191,6 +195,7 @@ function saveSettings() {
 function checkMatches() {
   const cards = document.querySelector('.goods') as HTMLDivElement;
   if (!cards.textContent) showMessage('no-matches');
+  else translateCards(app.language);
 }
 
 function sortData() {

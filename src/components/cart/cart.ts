@@ -109,7 +109,7 @@ function setupCartElement(id: number, element: DocumentFragment) {
   const cartItemElement = element.querySelector('.cart__item') as HTMLDivElement;
   cartItemElement.id = `cart-item-${id}`;
   appendItemElement(element);
-  app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element);
+  app.language === 'ru' && translateCartItem(document.querySelector(`#cart-item-${id}`) as Element, 'ru');
 }
 
 function createCartElement(id: number, color: string, brand: string, model: string, year: number) {

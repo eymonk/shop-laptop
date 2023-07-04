@@ -21,7 +21,7 @@ function turnCartIcon(id: number, action: 'on' | 'off') {
 function createClone() {
   const template = document.querySelector('#item-card') as HTMLTemplateElement;
   const clone = template.content.cloneNode(true) as HTMLElement;
-  app.language === 'ru' && translateCard(clone);
+  app.language === 'ru' && translateCard(clone, 'ru');
   return [
     clone,
     {

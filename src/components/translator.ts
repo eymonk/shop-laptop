@@ -3,36 +3,33 @@ import app from './app';
 
 type Language = 'en' | 'ru';
 type Color = 'blue' | 'синий' | 'gray' | 'серый' | 'black' | 'чёрный' | 'white' | 'белый';
-interface ColorsDictionary {
-  [key: string]: Color;
-}
 
 interface Dictionary {
   [key: string]: string;
 }
 
-const colorsDictionary: ColorsDictionary = {
-  white: 'белый',
-  белый: 'white',
-  blue: 'синий',
-  синий: 'blue',
-  gray: 'серый',
-  серый: 'gray',
-  black: 'чёрный',
-  чёрный: 'black',
-};
-
-const dictionary: Dictionary = {
+const dictionaryEN: Dictionary = {
   yes: 'да',
-  да: 'yes',
   no: 'нет',
-  нет: 'no',
-  маленький: 'small',
   small: 'маленький',
   large: 'большой',
-  большой: 'large',
   medium: 'средний',
+  white: 'белый',
+  blue: 'синий',
+  gray: 'серый',
+  black: 'чёрный',
+};
+
+const dictionaryRU: Dictionary = {
+  да: 'yes',
+  нет: 'no',
+  маленький: 'small',
+  большой: 'large',
   средний: 'medium',
+  белый: 'white',
+  синий: 'blue',
+  серый: 'gray',
+  чёрный: 'black',
 };
 
 interface nodeToTranslate {
@@ -59,68 +56,63 @@ function addPlaceholderToTranslate(node: HTMLElement, en: string, ru: string) {
   });
 }
 
-function translateCard(card: Element) {
-  const stockLabel = card.querySelector('.card__feature-label_in-stock') as HTMLParagraphElement;
-  stockLabel.textContent = app.language === 'en' ? 'in stock' : 'на складе';
-  const yearLabel = card.querySelector('.card__feature-label_release-year') as HTMLParagraphElement;
-  yearLabel.textContent = app.language === 'en' ? 'release year' : 'год выхода';
-  const gamingLabel = card.querySelector('.card__feature-label_gaming') as HTMLParagraphElement;
-  gamingLabel.textContent = app.language === 'en' ? 'gaming' : 'игровой';
-  const popularLabel = card.querySelector('.card__feature-label_popular') as HTMLParagraphElement;
-  popularLabel.textContent = app.language === 'en' ? 'popular' : 'популярный';
-  const colorLabel = card.querySelector('.card__feature-label_color') as HTMLParagraphElement;
-  colorLabel.textContent = app.language === 'en' ? 'color' : 'цвет';
-  const sizeLabel = card.querySelector('.card__feature-label_size') as HTMLParagraphElement;
-  sizeLabel.textContent = app.language === 'en' ? 'size' : 'размер';
-  const btnAddToCart = card.querySelector('.card__btn_add') as HTMLButtonElement;
-  btnAddToCart.textContent = app.language === 'en' ? 'add to cart' : 'добавить в корзину';
-  const colorValue = card.querySelector('.card__feature_color') as HTMLSpanElement;
-  colorValue.textContent = translateColor(colorValue.textContent as Color);
-  const gamingValue = card.querySelector('.card__feature_gaming') as HTMLSpanElement;
-  gamingValue.textContent = translateWord(gamingValue.textContent as string);
-  const popularValue = card.querySelector('.card__feature_popular') as HTMLSpanElement;
-  popularValue.textContent = translateWord(popularValue.textContent as string);
-  const sizeValue = card.querySelector('.card__feature_size') as HTMLSpanElement;
-  sizeValue.textContent = translateWord(sizeValue.textContent as string);
-}
-
-function translateCartItem(item: Element) {
+function translateCartItem(item: Element, lang: Language) {
   const colorText = item.querySelector('.cart-item__color') as HTMLParagraphElement;
-  colorText.textContent = translateColor(colorText.textContent as Color);
+  colorText.textContent = translateWord(colorText.textContent as Color, lang);
 }
 
-function translateCards() {
+function translateCards(lang: Language) {
   const cards = document.querySelectorAll('.goods__card');
-  cards.forEach((card) => translateCard(card));
+  cards.forEach((card) => translateCard(card, lang));
 }
 
-function translateCartItems() {
+function translateCartItems(lang: Language) {
   const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach((item) => translateCartItem(item));
+  cartItems.forEach((item) => translateCartItem(item, lang));
 }
 
-function translateWord(word: string) {
-  const result = dictionary[word];
+function translateWord(word: string, lang: Language) {
+  const result = lang === 'en' ? dictionaryRU[word] : dictionaryEN[word];
   return result ? result : word;
 }
 
-function translateColor(color: Color) {
-  const result = colorsDictionary[color];
-  return result ? result : color;
+function translateCard(card: Element, lang: Language) {
+  const stockLabel = card.querySelector('.card__feature-label_in-stock') as HTMLParagraphElement;
+  stockLabel.textContent = lang === 'en' ? 'in stock' : 'на складе';
+  const yearLabel = card.querySelector('.card__feature-label_release-year') as HTMLParagraphElement;
+  yearLabel.textContent = lang === 'en' ? 'release year' : 'год выхода';
+  const gamingLabel = card.querySelector('.card__feature-label_gaming') as HTMLParagraphElement;
+  gamingLabel.textContent = lang === 'en' ? 'gaming' : 'игровой';
+  const popularLabel = card.querySelector('.card__feature-label_popular') as HTMLParagraphElement;
+  popularLabel.textContent = lang === 'en' ? 'popular' : 'популярный';
+  const colorLabel = card.querySelector('.card__feature-label_color') as HTMLParagraphElement;
+  colorLabel.textContent = lang === 'en' ? 'color' : 'цвет';
+  const sizeLabel = card.querySelector('.card__feature-label_size') as HTMLParagraphElement;
+  sizeLabel.textContent = lang === 'en' ? 'size' : 'размер';
+  const btnAddToCart = card.querySelector('.card__btn_add') as HTMLButtonElement;
+  btnAddToCart.textContent = lang === 'en' ? 'add to cart' : 'добавить в корзину';
+  const colorValue = card.querySelector('.card__feature_color') as HTMLSpanElement;
+  colorValue.textContent = translateWord(colorValue.textContent as Color, lang);
+  const gamingValue = card.querySelector('.card__feature_gaming') as HTMLSpanElement;
+  gamingValue.textContent = translateWord(gamingValue.textContent as string, lang);
+  const popularValue = card.querySelector('.card__feature_popular') as HTMLSpanElement;
+  popularValue.textContent = translateWord(popularValue.textContent as string, lang);
+  const sizeValue = card.querySelector('.card__feature_size') as HTMLSpanElement;
+  sizeValue.textContent = translateWord(sizeValue.textContent as string, lang);
 }
 
 function translate(lang: Language) {
-  if (lang === 'en') {
-    nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
-    placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.en));
-    app.language = 'en';
-  } else {
+  if (lang === 'ru') {
     nodesToTranslate.forEach((item) => (item.node.textContent = item.ru));
     placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.ru));
     app.language = 'ru';
+  } else {
+    nodesToTranslate.forEach((item) => (item.node.textContent = item.en));
+    placeholdersToTranslate.forEach((item) => ((item.node as HTMLInputElement).placeholder = item.en));
+    app.language = 'en';
   }
-  translateCards();
-  translateCartItems();
+  translateCards(lang);
+  translateCartItems(lang);
   //to translate system searchMessage
   if (app.currentMessageType) showMessage(app.currentMessageType);
   localStorage.setItem('language', lang);
@@ -224,4 +216,4 @@ const translateBtn = document.querySelector('.header__btn_translate') as HTMLBut
 translateBtn.addEventListener('click', () => translate(app.language === 'en' ? 'ru' : 'en'));
 
 export default translate;
-export { Language, translateCard, translateCartItem };
+export { Language, translateCard, translateCards, translateCartItem };
