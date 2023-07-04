@@ -212,6 +212,8 @@ addNodeToTranslate(
   'товаров добавлено:'
 );
 
+addNodeToTranslate(document.querySelector('.cart__btn_checkout') as HTMLInputElement, 'checkout', 'оформить заказ');
+
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
 translateBtn.addEventListener('click', () => translate(app.language === 'en' ? 'ru' : 'en'));
 
