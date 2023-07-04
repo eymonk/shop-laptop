@@ -58,6 +58,29 @@
     order: 1;
   }
 
+  &-checkout {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: box.$gap-large-extra-2;
+
+    padding: box.$gap-large-extra-2;
+    background: colors.$black-transparent-dark-extra;
+
+    &__text {
+      width: 90%;
+      max-width: 423px;
+    }
+  }
+
   &__items {
     @include box.padding-inline-standard-2;
     display: flex;

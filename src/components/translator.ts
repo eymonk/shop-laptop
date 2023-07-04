@@ -213,6 +213,11 @@ addNodeToTranslate(
 );
 
 addNodeToTranslate(document.querySelector('.cart__btn_checkout') as HTMLInputElement, 'checkout', 'оформить заказ');
+addNodeToTranslate(
+  document.querySelector('.cart-checkout__text') as HTMLInputElement,
+  'Thank you for your time and for visiting this page. If you have any questions or job offers - contact me, please. Have a nice day :)',
+  'Спасибо за ваше время и за посещение данной страницы. Если у вас есть какие-либо вопросы или предложения о работе - свяжитесь со мной пожалуйста. Хорошего дня :)'
+);
 
 const translateBtn = document.querySelector('.header__btn_translate') as HTMLButtonElement;
 translateBtn.addEventListener('click', () => translate(app.language === 'en' ? 'ru' : 'en'));

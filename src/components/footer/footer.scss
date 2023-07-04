@@ -4,13 +4,15 @@
 
 .footer {
   @include box.padding-inline-standard-2;
+  border-top: box.$border-small-accent;
+}
+
+.contacts {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: box.$gap-large-extra;
-  
-  border-top: box.$border-small-accent;
   background-color: colors.$black-transparent;
 
   &__link {
@@ -25,15 +27,11 @@
     }
   }
 
-  &__year {
-    font-size: 2rem;
-  }
-
   &__icon {
     width: 30px;
   }
 
-  @media only screen and (max-width: 270px) {
+  @media only screen and (max-width: 290px) {
     flex-direction: column;
     gap: box.$gap-small;
 
