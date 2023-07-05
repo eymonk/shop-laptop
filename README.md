@@ -6,5 +6,5 @@ This project was made to learn to integrate filtering and ranging and also train
 [https://dakochkin.ru/shop-laptop/](https://dakochkin.ru/shop-laptop/)
 
 ## Contacts 
-Telegram:[@jaysun0](https://t.me/jaysun0)
+Telegram:[@jaysun0](https://t.me/jaysun0)<br>
 CV: [web-page](https://jaysuno0.github.io/rsschool-cv/)
