@@ -1,2 +1,10 @@
 # shop-laptop
-A project to acquire filtering and ranging skills.
+Hello :-) <br>
+This project was made to learn to integrate filtering and ranging and also train TypeScript, SASS, Webpack.
+
+## Link
+[https://dakochkin.ru/shop-laptop/](https://dakochkin.ru/shop-laptop/)
+
+## Contacts 
+Telegram:[@jaysun0](https://t.me/jaysun0)
+CV: [web-page](https://jaysuno0.github.io/rsschool-cv/)
